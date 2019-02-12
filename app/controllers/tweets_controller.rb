@@ -7,6 +7,8 @@ class TweetsController < ApplicationController
   def index
     @tweets = Tweet.all.order("created_at DESC")
     @tweet = Tweet.new
+    @followers = Following.where(following_user: current_user)
+    @followings = Following.where(follower_user: current_user)
   end
 
   # GET /tweets/1

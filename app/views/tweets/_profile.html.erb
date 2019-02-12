@@ -29,13 +29,13 @@
 				<div class="level-item has-centered-text">
 					<div>
 						<p class="heading"><%= link_to "Following", followings_path %> </p>
-						<p class="title is-6">123</p>
+						<p class="title is-6"><%= @followings.count %></p>
 					</div>
 				</div>
 					<div class="level-item has-centered-text">
 					<div>
 						<p class="heading"><%= link_to "Followers", followers_path %></p>
-						<p class="title is-6">465K</p>
+						<p class="title is-6"><%= @followers.count %></p>
 					</div>
 				</div>
 			</div>

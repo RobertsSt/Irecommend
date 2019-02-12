@@ -6,7 +6,7 @@
       <article class="media">
         <div class="media-left">
           <figure class="image is-64x64">
-            <%= gravatar_image_tag(follower.following_user.email, size: 64, alt: follower.following_user.name) %>
+            <%= gravatar_image_tag(follower.follower_user.email, size: 64, alt: follower.follower_user.name) %>
           </figure>
         </div>
         <div class="media-content">
@@ -16,10 +16,14 @@
           </div>
         </div>
         <div class="media-right">
-      
+
           <p class="control">
-            <%= link_to 'Unfollow', new_user_session_path, class: "button is-danger is-rounded is-outlined" %>
+            <%= link_to 'Follow', new_user_session_path, class: "button is-info is-rounded" %>
           </p>
+
+        <% #  <p class="control"> %>
+        <% #    <%= link_to 'Unfollow', new_user_session_path, class: "button is-danger is-rounded is-outlined" %>
+        <% #  </p> %>
 
         </div>
       </article>
