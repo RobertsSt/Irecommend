@@ -16,16 +16,10 @@
           </div>
         </div>
         <div class="media-right">
-
-          <% if @follow == false %>
-            <p class="control">
-              <%= link_to 'Follow', new_user_session_path, class: "button is-info is-rounded" %>
-            </p>
-          <% else %>
+      
           <p class="control">
             <%= link_to 'Unfollow', new_user_session_path, class: "button is-danger is-rounded is-outlined" %>
           </p>
-          <% end %>
 
         </div>
       </article>
