@@ -14,6 +14,7 @@
  *= require_self
  */
 
+@import "bulma_overrides";
 @import "bulma";
 
 .navbar-brand .title{
@@ -26,7 +27,4 @@
   img{
     border-radius: 50%;
   }
-}
-.notification:not(:last-child ){
-  margin-bottom: 0;
 }
