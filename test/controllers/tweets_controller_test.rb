@@ -2,6 +2,7 @@ require 'test_helper'
 
 class TweetsControllerTest < ActionDispatch::IntegrationTest
   setup do
+    sign_in_as(:one)
     @tweet = tweets(:one)
   end
 
@@ -20,7 +21,7 @@ class TweetsControllerTest < ActionDispatch::IntegrationTest
       post tweets_url, params: { tweet: { tweet: @tweet.tweet } }
     end
 
-    assert_redirected_to tweet_url(Tweet.last)
+    assert_redirected_to tweets_url
   end
 
   test "should show tweet" do

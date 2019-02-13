@@ -9,20 +9,24 @@ class TweetsController < ApplicationController
     @tweet = Tweet.new
     @followers = Following.where(following_user: current_user)
     @followings = Following.where(follower_user: current_user)
+    render 'index'
   end
 
   # GET /tweets/1
   # GET /tweets/1.json
   def show
+    render 'show'
   end
 
   # GET /tweets/new
   def new
     @tweet = current_user.tweets.build
+    render 'new'
   end
 
   # GET /tweets/1/edit
   def edit
+    render 'edit'
   end
 
   # POST /tweets
@@ -32,7 +36,7 @@ class TweetsController < ApplicationController
 
     respond_to do |format|
       if @tweet.save
-        format.html { redirect_to root_path, notice: 'Tweet was successfully created.' }
+        format.html { redirect_to tweets_path, notice: 'Tweet was successfully created.' }
         format.json { render :show, status: :created, location: @tweet }
       else
         format.html { render :new }
