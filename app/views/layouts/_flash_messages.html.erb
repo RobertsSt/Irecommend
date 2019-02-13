@@ -1,0 +1,7 @@
+<%- { notice: 'primary', alert: 'danger' }.each do |flash_key, notification_type| %>
+  <% if flash[flash_key] %>
+    <div class="notification is-<%= notification_type -%> global-notification is-radiusless">
+      <%= flash[flash_key] %>
+    </div>
+  <% end %>
+<% end %>
