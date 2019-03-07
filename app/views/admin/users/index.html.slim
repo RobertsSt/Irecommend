@@ -1,0 +1,17 @@
+table
+  br
+  tr
+    th Vārds
+    th Lietotājvārds
+    th Ē-pasts
+    th show
+    th edit
+    th destroy
+  - @users.each do |user|
+    tr
+      td = user.name
+      td = user.username
+      td = user.email
+      td = link_to "show", admin_tweet_path
+      td = link_to 'Edit', edit_admin_user_path(user)
+      td = link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' }

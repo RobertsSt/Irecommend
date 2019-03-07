@@ -1,0 +1,27 @@
+section.section
+  .container
+    .columns
+      = render 'profile'
+      .box
+        article.media
+          .media-left
+            figure.image.is-64x64
+              = gravatar_image_tag(@tweet.user.email, size: 64, alt: @tweet.user.name)
+          .media-content
+            .content
+              strong
+                = link_to @tweet.user.name, user_path(@tweet.user)
+                br
+              small
+                = link_to "@" + @tweet.user.username, user_path(@tweet.user)
+                br
+              = @tweet.tweet
+            nav.level
+              .level-left.is-mobile
+                - if user_signed_in?
+                  = link_to edit_tweet_path(@tweet), class: "level-tem" do
+                    span.icon
+                      i.fa.fa-pencil aria-hidden="true"
+                  = link_to @tweet, method: :delete, data: { confirm: "Are you sure you want to delete this tweet?"} do
+                    span.icon
+                      i.fa.fa-trash-o aria-hidden="true"

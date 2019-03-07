@@ -29,8 +29,40 @@
   }
 }
 
-body {
+.imagepadd{
+  height: 28px;
+  width: 28px;
+  padding-top: 8px;
+}
+
+.padd{
+  padding-top: 3px;
+}
+
+.logopadd{
+  height: 28px;
+  width: 28px;
+  padding-top: 1px;
+}
+
+.followingspadd{
+  padding-top: 9px;
+}
+
+body{
   padding-top: 52px;
+}
+
+html, body{
+  height: 100%;
+}
+
+body.background{
+  background-image: asset-url("background.jpg");
+  background-size: 100%;
+  background-repeat: no-repeat;
+  background-position: left top;
+  background-color: rgb(19, 17, 19);
 }
 
 .section {
@@ -39,4 +71,20 @@ body {
 
 .notification:not(:last-child ){
   margin-bottom: 0;
+}
+
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
 }

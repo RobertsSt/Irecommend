@@ -1,0 +1,10 @@
+section.section
+  .container
+    .columns
+      - if user_signed_in?
+        .column.is-one-quarter
+          = render 'profile'
+        .column.is-half
+          = render 'feed'
+        .column
+          = render 'who-to-follow'

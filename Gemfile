@@ -41,6 +41,7 @@ group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
 end
 
+gem 'slim'
 gem 'bulma-rails', '~> 0.7.2'
 gem 'simple_form', '~> 4.1'
 gem 'gravatar_image_tag', '~> 1.2'

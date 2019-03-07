@@ -8,50 +8,59 @@
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= stylesheet_link_tag "https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
   </head>
 
-  <body>
+  <body class="<%= 'background' if devise_controller? %>">
     <nav class="navbar is-info is-fixed-top">
-      <div class="navbar-brand">
-        <%= link_to root_path, class: "navbar-item" do %>
-          <h1 class="title is-5">Twitter</h1>
-        <% end %>
-        <div class ="navbar-burger burger" data-target="navbarExample">
-          <span></span>
-          <span></span>
-          <span></span>
+      <div class="container">
+        <div class="navbar-brand">
+          <%= link_to root_path, class: "navbar-item" do %>
+          <figure class="image logopadd">
+            <img src="<%= image_path("logo") %>">
+          </figure>
+            <h1 class="title is-5">Twitter</h1>
+          <% end %>
+          <div class ="navbar-burger burger" data-target="navbarExample">
+          </div>
         </div>
-      </div>
-      <div id="navbarExample" class="navbar-menu">
-        <div class="navbar-end">
-          <div class="navbar-item">
-            <div class="field is-grouped">
-              <p class="control">
-                <%= link_to 'New Tweet', root_path, class: "button is-info is-inverted" %>
-              </p
-              <% if user_signed_in? %>
-             <p class="control">
-               <%= link_to current_user.name, edit_user_registration_path, class: "button is-info" %>
-             </p>
-             <p>
-               <%= link_to "Logout", destroy_user_session_path, method: :delete, class:"button is-info" %>
-             </p>
-           <% else %>
-           <p class="control">
-             <%= link_to 'Sign In', new_user_session_path, class: "button is-info" %>
-           </p>
-           <p class="control">
-             <%= link_to 'Sign Up', new_user_registration_path, class: "button is-info" %>
-           </p>
-           <% end %>
+        <div id="navbarExample" class="navbar-menu">
+          <div class="navbar-end">
+            <div class="navbar-item">
+              <div class="field is-grouped">
+                <% if user_signed_in? %>
+                  <p class="control padd">
+                    <%= link_to 'New Tweet', root_path, class: "button is-info is-inverted is-rounded" %>
+                  </p>
+                  <div class="navbar-item has-dropdown is-hoverable">
+                    <%= link_to(user_path(current_user), html_options = {}) do %>
+                        <figure class="image imagepadd">
+                          <img src="https://bulma.io/images/placeholders/64x64.png" >
+                        </figure>
+                        <% end %>
+                      <a class="navbar-link"></a>
+                    <div class="navbar-dropdown">
+                        <%= link_to "Edit", 'users/edit' %>
+                    </div>
+                  </div>
+                  <p class="padd">
+                    <%= link_to "Logout", destroy_user_session_path, method: :delete, class:"button is-info is-rounded" %>
+                  </p>
+                <% else %>
+                  <p class="control">
+                    <%= link_to 'Sign In', new_user_session_path, class: "button is-info is-rounded" %>
+                  </p>
+                  <p class="control">
+                    <%= link_to 'Sign Up', new_user_registration_path, class: "button is-info is-rounded" %>
+                  </p>
+                <% end %>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </nav>
-
     <%= render 'layouts/flash_messages' %>
-
     <%= yield %>
   </body>
 </html>

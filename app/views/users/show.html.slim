@@ -1,0 +1,26 @@
+section.section
+  .container
+    .columns
+      = render 'profile'
+      .column.is-three-fifths.is-offset-one-fifths
+        - @tweets.each do | tweet |
+          .box
+            article.media
+              .media-left
+                figure.image.is-64x64
+                  = gravatar_image_tag(tweet.user.email, size: 64, alt: tweet.user.name)
+              .media-content
+                .content
+                  strong
+                    = link_to tweet.user.name, user_path(@user)
+                    br
+                  small
+                    = link_to "@" + tweet.user.username, user_path(@user)
+                    br
+                  p
+                    = tweet.tweet
+                nav.level
+                  .level-left.is-mobile
+                    = link_to tweet, class:"level-item" do
+                      span.icon
+                        i.fa.fa-link aria-hidden="true"

@@ -5,15 +5,22 @@ class TweetsController < ApplicationController
   # GET /tweets
   # GET /tweets.json
   def index
-    @tweets = Tweet.all.order("created_at DESC")
-    @tweet = Tweet.new
-    @followers = Following.where(following_user: current_user)
-    @followings = Following.where(follower_user: current_user)
+    if user_signed_in?
+      @tweets = Tweet.preload("user").where(user_id: current_user.followings_as_follower.select("following_user_id")).order("created_at DESC")
+      @tweet = Tweet.new
+      @followers = Following.where(following_user: current_user)
+      @followings = Following.where(follower_user: current_user)
+    else
+      redirect_to "/users/sign_in"
+    end
   end
 
   # GET /tweets/1
   # GET /tweets/1.json
   def show
+    @tweets = Tweet.preload("user").where(user_id: current_user.followings_as_follower.select("following_user_id")).order("created_at DESC")
+    @followers = Following.where(following_user: current_user)
+    @followings = Following.where(follower_user: current_user)
   end
 
   # GET /tweets/new

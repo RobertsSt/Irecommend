@@ -1,0 +1,28 @@
+section.section
+  .container
+    .columns
+      = render 'profile'
+      .column.is-three-fifths.is-offset-one-fifths
+        - @followings.each do |following|
+          .box
+            article.media
+              .media-left
+                figure.image.is-64x64
+                  = gravatar_image_tag(following.following_user.email, size: 64, alt: following.following_user.name)
+              .media-content
+                .content
+                  strong
+                    = link_to following.following_user.name, user_path(following.following_user)
+                    br
+                  small
+                    = link_to  "@" + following.following_user.username, user_path(following.following_user)
+                    br
+              - if current_user.id != following.following_user.id
+                - if current_user.follows?(following.following_user)
+                  .media-right
+                    p.control.followingspadd
+                      = link_to 'Unfollow', following_path(following.following_user.id), class: "button is-danger is-rounded is-outlined", method: "delete"
+                - else
+                  .pull-right
+                    p.content.followingspadd
+                      = link_to 'Follow', followings_path(following_user_id: following.following_user.id), class: "button is-info is-rounded", method: "post"
