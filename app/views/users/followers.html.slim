@@ -12,10 +12,10 @@ section.section
               .media-content
                 .content
                   strong
-                    =link_to follower.follower_user.name, user_path(follower.follower_user)
+                    =link_to follower.follower_user.name, user_path(follower.follower_user.username)
                     br
                   small
-                    =link_to "@" + follower.follower_user.username, user_path(follower.follower_user)
+                    =link_to "@" + follower.follower_user.username, user_path(follower.follower_user.username)
                     br
               - if current_user.id != follower.follower_user.id
                 - if current_user.follows?(follower.follower_user)

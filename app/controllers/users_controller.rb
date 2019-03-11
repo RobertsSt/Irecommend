@@ -2,8 +2,13 @@ class UsersController < ApplicationController
   before_action :load_user, :load_followers, :load_followings, :load_following
 
   def show
-    @tweets = Tweet.where(user_id: @user ).order("created_at DESC")
+    @alltweets = Tweet.where(user_id: @user ).order("created_at DESC")
+    @tweets = @alltweets.page(params[:page]).per(20)
     @tweet = Tweet.new
+    @page = params[:page].to_i
+    if @page == 0
+      @page = 1
+    end
   end
 
   def followings
@@ -13,7 +18,7 @@ class UsersController < ApplicationController
   end
 
   def destroy
-    user = User.find(params[:id])
+    user = User.find(username: params[:username])
     user.destroy
     redirect_to root_path
   end
@@ -21,7 +26,7 @@ class UsersController < ApplicationController
   private
 
   def load_user
-    @user = User.find(params[:id])
+    @user = User.find_by(username: params[:username])
   end
 
   def load_followers

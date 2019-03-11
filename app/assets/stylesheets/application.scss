@@ -88,3 +88,18 @@ td, th {
 tr:nth-child(even) {
   background-color: #dddddd;
 }
+
+.navigation-button-min-width {
+   > ul > li {
+     min-width: 200px;
+   }
+}
+
+.is-equal-spread ul li {
+  flex: 1 1 0
+}
+
+.panel-postition-fixed {
+  position: fixed;
+  width: 320px;
+}

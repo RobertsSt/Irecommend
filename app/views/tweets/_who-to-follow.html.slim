@@ -1,4 +1,4 @@
-nav.panel
+nav.panel.panel-postition-fixed
   p.panel-heading Who to Follow
   - current_user.whom_to_follow(3).each do |random_user|
     .panel-block
@@ -8,9 +8,9 @@ nav.panel
       .media-content
         .content
           small
-            b = link_to random_user.name, user_path(random_user)
+            b = link_to random_user.name, user_path(random_user.username)
           br
-          sup = link_to "@#{random_user.username}", user_path(random_user)
+          sup = link_to "@#{random_user.username}", user_path(random_user.username)
       .pull-right
         .content
           = link_to 'Follow', followings_path(following_user_id: random_user.id), class: "button is-info is-rounded", method: "post"

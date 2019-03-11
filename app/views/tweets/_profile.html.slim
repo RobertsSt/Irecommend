@@ -1,4 +1,4 @@
-nav.panel
+nav.panel.panel-postition-fixed
 	p.panel-heading Profile
 	.panel-block
 		article.media
@@ -18,18 +18,18 @@ nav.panel
 			.level-item
 				div
 					p.heading.is-info.button.is-rounded.is-inverted
-						= link_to "Tweets", user_path(current_user)
+						= link_to "Tweets", user_path(current_user.username)
 					p.title.is-6.has-text-centered
-						=link_to current_user.tweets.count,  user_path(current_user)
+						=link_to current_user.tweets.count,  user_path(current_user.username)
 			.level-item
 				div
 					p.heading.is-info.button.is-rounded.is-inverted
-						= link_to "Following", followings_user_path(current_user)
+						= link_to "Following", followings_user_path(current_user.username)
 					p.title.is-6.has-text-centered
-						=link_to @followings.count, followings_user_path(current_user)
+						=link_to @followings.count, followings_user_path(current_user.username)
 			.level-item
 				div
 					p.heading.is-info.button.is-rounded.is-inverted
-						= link_to "Followers", followers_user_path(current_user)
+						= link_to "Followers", followers_user_path(current_user.username)
 					p.title.is-6.has-text-centered
-						=link_to @followers.count, followers_user_path(current_user)
+						=link_to @followers.count, followers_user_path(current_user.username)

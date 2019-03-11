@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   resources :followings
   resources :followers
   resources :user_tweets
-  resources :users do
+  resources :users, param: :username do
     member do
       get "followings"
       get "followers"

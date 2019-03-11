@@ -12,10 +12,10 @@ section.section
               .media-content
                 .content
                   strong
-                    = link_to tweet.user.name, user_path(@user)
+                    = link_to tweet.user.name, user_path(@user.username)
                     br
                   small
-                    = link_to "@" + tweet.user.username, user_path(@user)
+                    = link_to "@" + tweet.user.username, user_path(@user.username)
                     br
                   p
                     = tweet.tweet
@@ -24,3 +24,22 @@ section.section
                     = link_to tweet, class:"level-item" do
                       span.icon
                         i.fa.fa-link aria-hidden="true"
+                      - if tweet.user.id === current_user.id
+                        = link_to edit_tweet_path(tweet), class: "level-item" do
+                          span.icon
+                            i.fa.fa-edit aria-hidden="true"
+                        = link_to tweet, method: :delete, class: "level-item", data: { confirm: "Are you sure you want to delete this tweet?"} do
+                          span.icon
+                            i.fa.fa-trash aria-hidden="true"
+.column
+  .column.is-offset-5.is-3
+    .tabs.is-toggle.is-toggle-rounded.is-fullwidth.is-equal-spread
+      ul
+        - if @page > 1
+          li
+            = link_to "?page=#{@page - 1}"
+              i.fas.fa-angle-double-left
+        - if @alltweets.count > @page * 20
+          li
+            = link_to "?page=#{@page + 1}" do
+              i.fas.fa-angle-double-right

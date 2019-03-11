@@ -12,10 +12,10 @@ section.section
               .media-content
                 .content
                   strong
-                    = link_to following.following_user.name, user_path(following.following_user)
+                    = link_to following.following_user.name, user_path(following.following_user.username)
                     br
                   small
-                    = link_to  "@" + following.following_user.username, user_path(following.following_user)
+                    = link_to  "@" + following.following_user.username, user_path(following.following_user.username)
                     br
               - if current_user.id != following.following_user.id
                 - if current_user.follows?(following.following_user)

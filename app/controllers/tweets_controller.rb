@@ -6,7 +6,8 @@ class TweetsController < ApplicationController
   # GET /tweets.json
   def index
     if user_signed_in?
-      @tweets = Tweet.preload("user").where(user_id: current_user.followings_as_follower.select("following_user_id")).order("created_at DESC")
+      @alltweets = Tweet.preload("user").where(user_id: current_user.followings_as_follower.select("following_user_id")).order("created_at DESC")
+      @tweets = @alltweets.page(params[:page]).per(20)
       @tweet = Tweet.new
       @followers = Following.where(following_user: current_user)
       @followings = Following.where(follower_user: current_user)
@@ -42,7 +43,7 @@ class TweetsController < ApplicationController
         format.html { redirect_to root_path, notice: 'Tweet was successfully created.' }
         format.json { render :show, status: :created, location: @tweet }
       else
-        format.html { render :new }
+        format.html { redirect_to root_path, alert: @tweet.errors.full_messages.to_sentence }
         format.json { render json: @tweet.errors, status: :unprocessable_entity }
       end
     end
