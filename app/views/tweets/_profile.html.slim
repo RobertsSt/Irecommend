@@ -4,7 +4,7 @@ nav.panel.panel-postition-fixed
 		article.media
 			.media-left
 				figure.image.is-64x64
-					= gravatar_image_tag(current_user.email, size: 64, alt: current_user.name)
+					= profile_avatar_select(current_user)
 			.media-content
 				.content
 					p
@@ -18,9 +18,9 @@ nav.panel.panel-postition-fixed
 			.level-item
 				div
 					p.heading.is-info.button.is-rounded.is-inverted
-						= link_to "Tweets", user_path(current_user.username)
+						= link_to "Tweets", profile_path(current_user.username)
 					p.title.is-6.has-text-centered
-						=link_to current_user.tweets.count,  user_path(current_user.username)
+						=link_to current_user.tweets.count,  profile_path(current_user.username)
 			.level-item
 				div
 					p.heading.is-info.button.is-rounded.is-inverted

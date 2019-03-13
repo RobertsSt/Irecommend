@@ -15,6 +15,11 @@ Rails.application.routes.draw do
     end
   end
 
+
+  get ':username', to: 'users#show', as: :profile
+  get ':username/edit', to: 'users#edit', as: :edit_profile
+  patch ':username/edit', to: 'users#update', as: :update_profile
+
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   root "tweets#index"
 end

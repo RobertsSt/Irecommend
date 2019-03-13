@@ -8,9 +8,9 @@ nav.panel.panel-postition-fixed
       .media-content
         .content
           small
-            b = link_to random_user.name, user_path(random_user.username)
+            b = link_to random_user.name, profile_path(random_user.username)
           br
-          sup = link_to "@#{random_user.username}", user_path(random_user.username)
+          sup = link_to "@#{random_user.username}", profile_path(random_user.username)
       .pull-right
         .content
           = link_to 'Follow', followings_path(following_user_id: random_user.id), class: "button is-info is-rounded", method: "post"

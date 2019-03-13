@@ -23,6 +23,17 @@ class UsersController < ApplicationController
     redirect_to root_path
   end
 
+  def update
+    if @user.update(profile_params)
+      flash[:success] = 'Your profile has been updated.'
+      redirect_to profile_path(@user.username)
+    else
+      @user.errors.full_messages
+      flash[:error] = @user.errors.full_messages
+      render :edit
+    end
+  end
+
   private
 
   def load_user
@@ -39,5 +50,9 @@ class UsersController < ApplicationController
 
   def load_following
     @following = Following.find_by( follower_user_id: current_user.id, following_user_id: @user )
+  end
+
+  def profile_params
+    params.require(@user).permit(:avatar, :bio)
   end
 end

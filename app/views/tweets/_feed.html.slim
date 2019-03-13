@@ -14,10 +14,10 @@
       .media-content
         .content
           strong
-            = link_to tweet.user.name, user_path(tweet.user.username)
+            = link_to tweet.user.name, profile_path(tweet.user.username)
             br
           small
-            = link_to "@#{tweet.user.username}", user_path(tweet.user.username)
+            = link_to "@#{tweet.user.username}", profile_path(tweet.user.username)
             br
           p
             = tweet.tweet

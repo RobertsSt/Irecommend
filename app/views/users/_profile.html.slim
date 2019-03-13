@@ -10,11 +10,11 @@
           p
             strong
               = link_to @user.name, root_path if current_user.id == @user.id
-              = link_to @user.name, user_path if current_user.id != @user.id
+              = link_to @user.name, profile_path if current_user.id != @user.id
               br
             small
               = link_to "@" + @user.username, root_path if current_user.id == @user.id
-              = link_to "@" + @user.username, user_path if current_user.id != @user.id
+              = link_to "@" + @user.username, profile_path if current_user.id != @user.id
       - if current_user.id != @user.id
         - if current_user.follows?(@user)
           .pull-right
@@ -29,9 +29,9 @@
         .level-item
           div
             p.heading.is-info.button.is-rounded.is-inverted
-              = link_to "Tweets", user_path
+              = link_to "Tweets", profile_path
             p.title.is-6.has-text-centered
-              =link_to @user.tweets.count, user_path
+              =link_to @user.tweets.count, profile_path
         .level-item
           div
             p.heading.is-info.button.is-rounded.is-inverted

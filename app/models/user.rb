@@ -9,6 +9,9 @@ class User < ApplicationRecord
   has_many :followings_as_follower, class_name: "Following", foreign_key: "follower_user_id", dependent: :destroy
   has_many :followings_as_following, class_name: "Following", foreign_key: "following_user_id", dependent: :destroy
 
+  has_attached_file :avatar, styles: { medium: '152x152#' }
+  validates_attachment_content_type :avatar, content_type: /\Aimage\/.*\Z/
+
   validates :username, presence: :true, uniqueness: { case_sensitive: false }
   validates_format_of :username, with: /^[a-zA-Z0-9_\.]*$/, :multiline => true #username cant be email (@)
 
@@ -17,6 +20,7 @@ class User < ApplicationRecord
   def login
     @login || self.username || self.email
   end
+
 
   def self.find_first_by_auth_conditions(warden_conditions)
     conditions = warden_conditions.dup
