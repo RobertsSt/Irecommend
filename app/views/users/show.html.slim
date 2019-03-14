@@ -8,7 +8,7 @@ section.section
             article.media
               .media-left
                 figure.image.is-64x64
-                  = gravatar_image_tag(tweet.user.email, size: 64, alt: tweet.user.name)
+                  = profile_avatar_select(tweet.user)
               .media-content
                 .content
                   strong
@@ -19,6 +19,9 @@ section.section
                     br
                   p
                     = tweet.tweet
+                    br
+                    - if tweet.image.present?
+                      = image_tag tweet.image.url
                 nav.level
                   .level-left.is-mobile
                     = link_to tweet, class:"level-item" do

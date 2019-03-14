@@ -8,7 +8,7 @@ section.section
           article.media
             .media-left
               figure.image.is-64x64
-                = gravatar_image_tag(@tweet.user.email, size: 64, alt: @tweet.user.name)
+                = profile_avatar_select(@tweet.user)
             .media-content
               .content
                 strong
@@ -19,6 +19,26 @@ section.section
                   br
                 p
                   = @tweet.tweet
+                  br
+                  - if @tweet.image.present?
+                    = image_tag @tweet.image.url
+              - if @tweet.comments
+                - @tweet.comments.each do |comment|
+                  .comment
+                    .user-name
+                      = comment.user.username
+                    .comment-content
+                      = comment.content
+                    - if comment.user == current_user
+                      = link_to tweet_comment_path(tweet, comment), method: :delete, data: { confirm: "Are you sure?" } do
+                        span.glyphicon.glyphicon-remove.delete-comment
+              .comment-like-form.row
+                .like-button.is-1
+                  span.icon
+                    i.far.fa-heart
+                .comment-form.is-11
+                  = form_for [@tweet, @tweet.comments.new] do |f|
+                    = f.text_field :content, placeholder: 'Add a comment...'
               nav.level
                 .level-left.is-mobile
                   - if @tweet.user == current_user

@@ -2,7 +2,7 @@
   article.media.box
     figure.media-left
       p.image.is-64x64
-        = gravatar_image_tag(current_user.email, size: 64, alt: current_user.name)
+        = profile_avatar_select(current_user)
     .media-content
       = render 'tweets/form'
 - @tweets.each do | tweet |
@@ -10,7 +10,7 @@
     article.media
       .media-left
         figure.image.is-64x64
-          = gravatar_image_tag(tweet.user.email, size: 64, alt: tweet.user.name)
+          = profile_avatar_select(tweet.user)
       .media-content
         .content
           strong
@@ -21,6 +21,9 @@
             br
           p
             = tweet.tweet
+            br
+            - if tweet.image.present?
+              = image_tag tweet.image.url
         nav.level
           .level-left.is-mobile
             = link_to tweet, class:"level-item" do

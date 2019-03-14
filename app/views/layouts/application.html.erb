@@ -36,7 +36,7 @@
                   <div class="navbar-item has-dropdown is-hoverable">
                     <%= link_to(profile_path(current_user.username), html_options = {}) do %>
                         <figure class="image imagepadd">
-                          <img src="https://bulma.io/images/placeholders/64x64.png" >
+                          <%= profile_avatar_select(current_user)%>
                         </figure>
                         <% end %>
                       <a class="navbar-link"></a>

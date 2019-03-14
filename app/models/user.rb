@@ -8,7 +8,8 @@ class User < ApplicationRecord
   has_many :tweets, dependent: :destroy
   has_many :followings_as_follower, class_name: "Following", foreign_key: "follower_user_id", dependent: :destroy
   has_many :followings_as_following, class_name: "Following", foreign_key: "following_user_id", dependent: :destroy
-
+  has_many :comments, dependent: :destroy
+  
   has_attached_file :avatar, styles: { medium: '152x152#' }
   validates_attachment_content_type :avatar, content_type: /\Aimage\/.*\Z/
 

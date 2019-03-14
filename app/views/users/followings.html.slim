@@ -8,7 +8,7 @@ section.section
             article.media
               .media-left
                 figure.image.is-64x64
-                  = gravatar_image_tag(following.following_user.email, size: 64, alt: following.following_user.name)
+                  = profile_avatar_select(following.following_user)
               .media-content
                 .content
                   strong

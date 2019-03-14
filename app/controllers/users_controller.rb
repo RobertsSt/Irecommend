@@ -24,15 +24,17 @@ class UsersController < ApplicationController
   end
 
   def update
-    if @user.update(profile_params)
-      flash[:success] = 'Your profile has been updated.'
+    if @user.update(user_params)
+      flash[:success] = 'Your profile has vbeen updated.'
       redirect_to profile_path(@user.username)
     else
       @user.errors.full_messages
       flash[:error] = @user.errors.full_messages
       render :edit
     end
+
   end
+
 
   private
 
@@ -52,7 +54,7 @@ class UsersController < ApplicationController
     @following = Following.find_by( follower_user_id: current_user.id, following_user_id: @user )
   end
 
-  def profile_params
-    params.require(@user).permit(:avatar, :bio)
+  def user_params
+    params.require(:user).permit(:avatar, :bio)
   end
 end

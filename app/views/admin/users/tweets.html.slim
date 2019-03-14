@@ -7,7 +7,7 @@ section.section
             article.media
               .media-left
                 figure.image.is-64x64
-                  = gravatar_image_tag(tweet.user.email, size: 64, alt: tweet.user.name)
+                  = profile_avatar_select(tweet.user)
               .media-content
                 .content
                   strong

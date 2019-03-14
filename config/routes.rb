@@ -4,7 +4,9 @@ Rails.application.routes.draw do
     resources :tweets
   end
   devise_for :users, :controllers => { registrations: 'registrations' }
-  resources :tweets
+  resources :tweets do
+    resources :comments
+  end
   resources :followings
   resources :followers
   resources :user_tweets
@@ -18,7 +20,7 @@ Rails.application.routes.draw do
 
   get ':username', to: 'users#show', as: :profile
   get ':username/edit', to: 'users#edit', as: :edit_profile
-  patch ':username/edit', to: 'users#update', as: :update_profile
+  post "users/:username", to: 'users#update', as: :update_profile
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   root "tweets#index"
