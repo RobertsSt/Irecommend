@@ -1,0 +1,12 @@
+div
+  div
+    = link_to "@" + comment.user.username, profile_path(comment.user.username)
+  .columns
+    .column.is-10
+      = comment.content
+    .column.is-2
+      - if comment.user == current_user
+        = link_to tweet_comment_path(comment.tweet, comment), method: :delete, data: { confirm: "Are you sure?" }, remote: true do
+          span.fas.fa-trash.delete-comment
+      span.icon
+        i.far.fa-heart

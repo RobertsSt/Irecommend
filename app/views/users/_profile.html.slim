@@ -1,5 +1,5 @@
 .column.is-one-quarter
-  nav.panel.panel-postition-fixed
+  nav.panel
     p.panel-heading Profile
     .panel-block
       .media-left
@@ -9,12 +9,10 @@
         .content
           p
             strong
-              = link_to @user.name, root_path if current_user.id == @user.id
-              = link_to @user.name, profile_path if current_user.id != @user.id
+              = link_to @user.name, profile_path
               br
             small
-              = link_to "@" + @user.username, root_path if current_user.id == @user.id
-              = link_to "@" + @user.username, profile_path if current_user.id != @user.id
+              = link_to "@" + @user.username, profile_path
               br
               = @user.bio
       - if current_user.id != @user.id

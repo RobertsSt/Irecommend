@@ -1,0 +1,49 @@
+doctype html
+html
+  head
+    title Twitter
+    = csrf_meta_tags
+    = csp_meta_tag
+    = favicon_link_tag asset_path('favicon.ico')
+    = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
+    link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous"
+    = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
+    meta name="viewport" content="width=device-width, initial-scale=1"
+
+  body class=('background' if devise_controller?)
+    nav.navbar.is-info.is-fixed-top
+      div.container
+        .navbar-brand
+          = link_to root_path, class: "navbar-item" do
+            i.fas.fa-home
+            h1.title.is-5 &nbsp Home
+        .navbar-centered
+          = link_to root_path, class: "navbar-item" do
+            figure.image.logopadd
+              img src=(image_path("logo"))
+            h1.title.is-5 Twitter
+        .navbar-menu id="navbarExample"
+          div.navbar-end
+            div.navbar-item
+              div.field.is-grouped
+                - if user_signed_in?
+                  p.control.padd
+                    = link_to 'New Tweet', root_path, class: "button is-info is-inverted is-rounded"
+                  div.navbar-item.has-dropdown.is-hoverable
+                    = link_to(profile_path(current_user.username), html_options = {}) do
+                      figure.image.imagepadd
+                        = profile_avatar_select(current_user)
+                    a.navbar-link
+                    div.navbar-dropdown
+                      = link_to "Mainīt paroli", edit_user_registration_path
+                      br
+                      = link_to "Mainīt bildi", edit_profile_path(current_user.username)
+                  p.padd
+                  = link_to "Logout", destroy_user_session_path, method: :delete, class:"button is-info is-rounded"
+                - else
+                  p.control
+                  = link_to 'Sign In', new_user_session_path, class: "button is-info is-rounded"
+                  p.control
+                  = link_to 'Sign Up', new_user_registration_path, class: "button is-info is-rounded"
+    = render 'layouts/flash_messages'
+    = yield

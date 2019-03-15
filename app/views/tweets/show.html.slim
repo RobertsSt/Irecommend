@@ -21,24 +21,7 @@ section.section
                   = @tweet.tweet
                   br
                   - if @tweet.image.present?
-                    = image_tag @tweet.image.url
-              - if @tweet.comments
-                - @tweet.comments.each do |comment|
-                  .comment
-                    .user-name
-                      = comment.user.username
-                    .comment-content
-                      = comment.content
-                    - if comment.user == current_user
-                      = link_to tweet_comment_path(tweet, comment), method: :delete, data: { confirm: "Are you sure?" } do
-                        span.glyphicon.glyphicon-remove.delete-comment
-              .comment-like-form.row
-                .like-button.is-1
-                  span.icon
-                    i.far.fa-heart
-                .comment-form.is-11
-                  = form_for [@tweet, @tweet.comments.new] do |f|
-                    = f.text_field :content, placeholder: 'Add a comment...'
+                    = image_tag(@tweet.image.url, class: "img")
               nav.level
                 .level-left.is-mobile
                   - if @tweet.user == current_user
@@ -48,3 +31,30 @@ section.section
                     = link_to @tweet, method: :delete, data: { confirm: "Are you sure you want to delete this tweet?"} do
                       span.icon
                         i.fa.fa-trash-o aria-hidden="true"
+                .columns
+                  .column.is-12
+                    - if @tweet.comments.present?
+                      = render @tweet.comments
+                    = form_for([@tweet, @tweet.comments.build]) do |f|
+                      = f.text_field :content, placeholder: 'Add a comment...'
+            .media-right
+              small
+                - time = Time.now - @tweet.created_at
+                - if time.round == 1
+                  = "#{time.round} sekunde"
+                - elsif time.round > 1 && time.round < 60
+                  = "#{time.round} sekundes"
+                - elsif (time/60).round == 1
+                  = "#{(time / 60).round} minūte"
+                - elsif (time/60).round > 1 && (time/60).round <= 60
+                  = "#{(time / 60).round} minūtes"
+                - elsif (time / 60 / 60).round == 1
+                  = "#{(time / 60 / 60).round} stunda"
+                - elsif (time / 60 / 60).round > 1 && (time / 60 / 60).round <= 24
+                  = "#{(time / 60 / 60).round} stundas"
+                - elsif (time / 60 / 60 / 24).round == 1
+                  = "#{(time / 60 / 60 / 24).round} diena"
+                - elsif (time / 60 / 60 / 24).round > 1
+                  = "#{(time / 60 / 60 / 24).round} dienas"
+                br
+                | pirms

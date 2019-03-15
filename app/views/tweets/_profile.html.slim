@@ -1,7 +1,6 @@
-nav.panel.panel-postition-fixed
+nav.panel
   p.panel-heading Profile
   .panel-block
-    article.media
       .media-left
         figure.image.is-64x64
           = profile_avatar_select(current_user)
@@ -9,10 +8,10 @@ nav.panel.panel-postition-fixed
         .content
           p
             strong
-              = link_to current_user.name, root_path
+              = link_to current_user.name, profile_path(current_user.username)
               br
             small
-              = link_to "@" + current_user.username, root_path
+              = link_to "@" + current_user.username, profile_path(current_user.username)
               br
               =current_user.bio
   .panel-block

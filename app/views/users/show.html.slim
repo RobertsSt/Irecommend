@@ -21,7 +21,7 @@ section.section
                     = tweet.tweet
                     br
                     - if tweet.image.present?
-                      = image_tag tweet.image.url
+                      = image_tag(tweet.image.url, class: "img")
                 nav.level
                   .level-left.is-mobile
                     = link_to tweet, class:"level-item" do
@@ -34,6 +34,27 @@ section.section
                         = link_to tweet, method: :delete, class: "level-item", data: { confirm: "Are you sure you want to delete this tweet?"} do
                           span.icon
                             i.fa.fa-trash aria-hidden="true"
+              .media-right
+                small
+                  - time = Time.now - tweet.created_at
+                  - if time.round == 1
+                    = "#{time.round} sekunde"
+                  - elsif time.round > 1 && time.round < 60
+                    = "#{time.round} sekundes"
+                  - elsif (time/60).round == 1
+                    = "#{(time / 60).round} minūte"
+                  - elsif (time/60).round > 1 && (time/60).round <= 60
+                    = "#{(time / 60).round} minūtes"
+                  - elsif (time / 60 / 60).round == 1
+                    = "#{(time / 60 / 60).round} stunda"
+                  - elsif (time / 60 / 60).round > 1 && (time / 60 / 60).round <= 24
+                    = "#{(time / 60 / 60).round} stundas"
+                  - elsif (time / 60 / 60 / 24).round == 1
+                    = "#{(time / 60 / 60 / 24).round} diena"
+                  - elsif (time / 60 / 60 / 24).round > 1
+                    = "#{(time / 60 / 60 / 24).round} dienas"
+                  br
+                  | pirms
 .column
   .column.is-offset-5.is-3
     .tabs.is-toggle.is-toggle-rounded.is-fullwidth.is-equal-spread

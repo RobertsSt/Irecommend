@@ -3,8 +3,7 @@ section.section
     div.columns.is-centered
       div.column.is-4
         div.box
-          h2.title.is-2 Edit
-          = resource_name.to_s.humanize
+          h2.title.is-2 Rediģēt profilu
           = simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f|
             = f.error_notification
             div.field
