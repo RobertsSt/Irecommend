@@ -1,4 +1,4 @@
-.column.is-one-quarter
+.column.is-one-quarter-fullhd.is-one-third-widescreen.is-one-third-desktop.is-two-fifths-tablet
   nav.panel
     p.panel-heading Profile
     .panel-block
@@ -9,38 +9,38 @@
         .content
           p
             strong
-              = link_to @user.name, profile_path
+              = link_to @user.name, profile_path, class: "has-text-dark"
               br
             small
-              = link_to "@" + @user.username, profile_path
+              = link_to "@" + @user.username, profile_path, class: "has-text-dark"
               br
               = @user.bio
       - if current_user.id != @user.id
         - if current_user.follows?(@user)
           .pull-right
             .content
-              = link_to 'Unfollow', following_path(@user), class: "button is-danger is-rounded is-outlined pull-right", method: "delete"
+              = link_to 'Unfollow', following_path(@user), class: "button is-dark is-rounded is-outlined pull-right", method: "delete"
         - else
           .pull-right
             .content
-              = link_to 'Follow', followings_path(following_user_id: @user.id), class: "button is-info is-rounded pull-right", method: "post"
+              = link_to 'Follow', followings_path(following_user_id: @user.id), class: "button is-dark is-rounded pull-right", method: "post"
     .panel-block
       .level.is-mobile
         .level-item
           div
             p.heading.is-info.button.is-rounded.is-inverted
-              = link_to "Tweets", profile_path
+              = link_to "Tweets", profile_path, class: "has-text-dark"
             p.title.is-6.has-text-centered
-              =link_to @user.tweets.count, profile_path
+              =link_to @user.tweets.count, profile_path, class: "has-text-dark"
         .level-item
           div
             p.heading.is-info.button.is-rounded.is-inverted
-              = link_to "Following", followings_user_path(@user.username)
+              = link_to "Following", followings_user_path(@user.username), class: "has-text-dark"
             p.title.is-6.has-text-centered
-              =link_to @followings.count, followings_user_path(@user.username)
+              =link_to @followings.count, followings_user_path(@user.username), class: "has-text-dark"
           .level-item
           div
             p.heading.is-info.button.is-rounded.is-inverted
-              = link_to "Followers", followers_user_path(@user.username)
+              = link_to "Followers", followers_user_path(@user.username), class: "has-text-dark"
             p.title.is-6.has-text-centered
-              =link_to @followers.count, followers_user_path(@user.username)
+              =link_to @followers.count, followers_user_path(@user.username), class: "has-text-dark"

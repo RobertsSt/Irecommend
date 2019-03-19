@@ -21,8 +21,8 @@ section.section
                 - if current_user.follows?(following.following_user)
                   .media-right
                     p.control.followingspadd
-                      = link_to 'Unfollow', following_path(following.following_user.id), class: "button is-danger is-rounded is-outlined", method: "delete"
+                      = link_to 'Unfollow', following_path(following.following_user.id), class: "button is-dark is-rounded is-outlined", method: "delete"
                 - else
                   .pull-right
                     p.content.followingspadd
-                      = link_to 'Follow', followings_path(following_user_id: following.following_user.id), class: "button is-info is-rounded", method: "post"
+                      = link_to 'Follow', followings_path(following_user_id: following.following_user.id), class: "button is-light is-rounded", method: "post"

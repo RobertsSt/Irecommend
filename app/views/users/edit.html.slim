@@ -7,7 +7,7 @@ section.section
           = simple_form_for(:user, url: {action: "update"}, html: { multipart: true }) do |f|
             h4 Mainīt profila bildi un aprakstu:
             div.field
-              div.control
+              figure.image.img
                 = profile_avatar_select(@user)
             div.field
               div.control
@@ -17,4 +17,4 @@ section.section
                 = f.text_area :bio, label: false, rows: 4, cols: 50
             div.field
               div.control
-                = f.submit "Update Profile", class: 'button is-info is-rounded'
+                = f.submit "Update Profile", class: 'button is-dark is-rounded'

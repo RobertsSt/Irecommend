@@ -11,24 +11,21 @@ html
     meta name="viewport" content="width=device-width, initial-scale=1"
 
   body class=('background' if devise_controller?)
-    nav.navbar.is-info.is-fixed-top
+    nav.navbar.is-dark.is-fixed-top
       div.container
         .navbar-brand
           = link_to root_path, class: "navbar-item" do
-            i.fas.fa-home
+            span.fa-stack.fa-1x
+              i.fas.fa-certificate.fa-stack-2x.has-text-light
+              i.fas.fa-thumbs-up.fa-stack-1x.has-text-dark
             h1.title.is-5 &nbsp Home
-        .navbar-centered
-          = link_to root_path, class: "navbar-item" do
-            figure.image.logopadd
-              img src=(image_path("logo"))
-            h1.title.is-5 Twitter
         .navbar-menu id="navbarExample"
           div.navbar-end
             div.navbar-item
               div.field.is-grouped
                 - if user_signed_in?
-                  p.control.padd
-                    = link_to 'New Tweet', root_path, class: "button is-info is-inverted is-rounded"
+                  p.control
+                    = link_to 'I recommend', root_path, class: "button is-light is-rounded"
                   div.navbar-item.has-dropdown.is-hoverable
                     = link_to(profile_path(current_user.username), html_options = {}) do
                       figure.image.imagepadd
@@ -38,12 +35,12 @@ html
                       = link_to "Mainīt paroli", edit_user_registration_path
                       br
                       = link_to "Mainīt bildi", edit_profile_path(current_user.username)
-                  p.padd
-                  = link_to "Logout", destroy_user_session_path, method: :delete, class:"button is-info is-rounded"
+                  p
+                  = link_to "Logout", destroy_user_session_path, method: :delete, class:"button is-dark is-rounded is-outlined is-inverted"
                 - else
                   p.control
-                  = link_to 'Sign In', new_user_session_path, class: "button is-info is-rounded"
+                  = link_to 'Sign In', new_user_session_path, class: "button is-dark is-rounded"
                   p.control
-                  = link_to 'Sign Up', new_user_registration_path, class: "button is-info is-rounded"
+                  = link_to 'Sign Up', new_user_registration_path, class: "button is-dark is-rounded"
     = render 'layouts/flash_messages'
     = yield

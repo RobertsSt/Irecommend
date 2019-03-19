@@ -1,6 +1,6 @@
-div
-  div
-    = link_to "@" + comment.user.username, profile_path(comment.user.username)
+div.comment-padding
+  .has-background-light
+    = link_to "@" + comment.user.username, profile_path(comment.user.username), class: "has-text-dark"
   .columns
     .column.is-10
       = comment.content
@@ -8,5 +8,3 @@ div
       - if comment.user == current_user
         = link_to tweet_comment_path(comment.tweet, comment), method: :delete, data: { confirm: "Are you sure?" }, remote: true do
           span.fas.fa-trash.delete-comment
-      span.icon
-        i.far.fa-heart

@@ -15,21 +15,27 @@
       .media-content
         .content
           strong
-            = link_to tweet.user.name, profile_path(tweet.user.username)
+            = link_to tweet.user.name, profile_path(tweet.user.username), class: "has-text-dark"
             br
           small
-            = link_to "@#{tweet.user.username}", profile_path(tweet.user.username)
+            = link_to "@#{tweet.user.username}", profile_path(tweet.user.username), class: "has-text-dark"
             br
           p
             = tweet.tweet
             br
             - if tweet.image.present?
               = image_tag(tweet.image.url, class: "img")
+        .columns
+          .column.is-9
+            - if tweet.comments.present?
+              hr class="dropdown-divider"
+              = render tweet.comments
         nav.level
           .level-left.is-mobile
             = link_to tweet, class:"level-item" do
               span.icon
-                i.fa.fa-link aria-hidden="true"
+                i.fas.fa-link.has-text-dark &nbsp
+                i.far.fa-comments.has-text-dark
       .media-right
         small
           - time = Time.now - tweet.created_at
@@ -52,6 +58,8 @@
           br
           | pirms
 - page = params[:page].to_i
+- if page == 0
+  - page = 1
 .column
   .column.is-offset-2.is-8
     .tabs.is-toggle.is-toggle-rounded.is-fullwidth.is-equal-spread

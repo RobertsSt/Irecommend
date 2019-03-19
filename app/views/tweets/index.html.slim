@@ -2,9 +2,12 @@ section.section
   .container
     .columns
       - if user_signed_in?
-        .column.is-one-quarter
-          = render 'profile'
-        .column.is-half
-          = render 'feed'
+        .column.is-one-quarter-fullhd.is-one-third-widescreen.is-one-third-desktop.is-half-tablet
+          .is-postition-fixed.is-postition-relative-mobile-only
+            = render 'profile'
+            .is-hidden-fullhd.is-hidden-mobile
+              = render 'who-to-follow'
         .column
+          = render 'feed'
+        .column.is-one-quarter.is-hidden-widescreen-only.is-hidden-desktop-only.is-hidden-tablet-only.is-hidden-mobile-only
           = render 'who-to-follow'

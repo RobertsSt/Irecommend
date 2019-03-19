@@ -12,10 +12,10 @@ section.section
               .media-content
                 .content
                   strong
-                    = link_to tweet.user.name, profile_path(@user.username)
+                    = link_to tweet.user.name, profile_path(@user.username), class: "has-text-dark"
                     br
                   small
-                    = link_to "@" + tweet.user.username, profile_path(@user.username)
+                    = link_to "@" + tweet.user.username, profile_path(@user.username), class: "has-text-dark"
                     br
                   p
                     = tweet.tweet
@@ -55,15 +55,18 @@ section.section
                     = "#{(time / 60 / 60 / 24).round} dienas"
                   br
                   | pirms
+  - page = params[:page].to_i
+  - if page == 0
+    - page = 1
 .column
   .column.is-offset-5.is-3
     .tabs.is-toggle.is-toggle-rounded.is-fullwidth.is-equal-spread
       ul
-        - if @page > 1
+        - if page > 1
           li
-            = link_to "?page=#{@page - 1}"
+            = link_to "?page=#{page - 1}"
               i.fas.fa-angle-double-left
-        - if @alltweets.count > @page * 20
+        - if @alltweets.count > page * 20
           li
-            = link_to "?page=#{@page + 1}" do
+            = link_to "?page=#{page > 1 ? page + 1 : 2}" do
               i.fas.fa-angle-double-right
