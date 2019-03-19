@@ -12,10 +12,10 @@ section.section
             .media-content
               .content
                 strong
-                  = link_to @tweet.user.name, profile_path(@tweet.user.username)
+                  = link_to @tweet.user.name, profile_path(@tweet.user.username), class:"has-text-dark"
                   br
                 small
-                  = link_to "@" + @tweet.user.username, profile_path(@tweet.user.username)
+                  = link_to "@" + @tweet.user.username, profile_path(@tweet.user.username), class:"has-text-dark"
                   br
                 p
                   = @tweet.tweet
