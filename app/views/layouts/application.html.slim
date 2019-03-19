@@ -30,7 +30,7 @@ html
           div class="navbar-end"
             div class="navbar-item has-dropdown is-hoverable"
               a class="navbar-link" href="#{current_user.username}"
-                | Profile
+                strong Profile
 
               div class="navbar-dropdown"
                 a class="navbar-item" href="users/edit"
@@ -40,7 +40,7 @@ html
             div class="navbar-item"
               div class="buttons"
                 a class="button is-dark is-rounded is-outlined is-inverted" href="users/sign_out"
-                  strong Logout
+                  | Logout
 
     = render 'layouts/flash_messages'
     = yield
