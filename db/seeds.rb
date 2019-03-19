@@ -12,9 +12,21 @@ if u = User.where(email: 'admin@email.com').first
 else
   u = User.create!(
     email: 'admin@email.com',
-    password: 'password123',
+    password: 'mammamamma',
     username: 'administrator',
     name: 'Roberts Šteins'
   )
   puts "  - User #{u.email} created"
+
+  if u2 = User.where(email: 'robertssteins@gmail.com').first
+    puts "  - User #{u2.email} already exists"
+  else
+    u2 = User.create!(
+      email: 'robertssteins@gmail.com',
+      password: 'mammamamma',
+      username: 'asinsbralis',
+      name: 'Roberts'
+    )
+    puts "  - User #{u2.email} created"
+
 end

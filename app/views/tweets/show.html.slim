@@ -61,18 +61,17 @@ section.section
                 br
                 | pirms
 
-nav.navbar role="navigation" aria-label="dropdown navigation"
+nav.navbar
   .navbar-item.has-dropdown.is-hoverable
-    a.navbar-link
-      = link_to(profile_path(current_user.username), html_options = {}) do
-        figure.image.imagepadd
-          = profile_avatar_select(current_user)
+    = link_to(profile_path(current_user.username), html_options = {}) do
+      figure.image.imagepadd
+        = profile_avatar_select(current_user)
+      a.navbar-link
     .navbar-dropdown
-      a.navbar-item
-        = link_to 'IRecommend', root_path, class: "has-text-dark is-size-5"
-      a.navbar-item
-        = link_to "Mainīt paroli", edit_user_registration_path, class: "has-text-dark is-size-5"
-      a.navbar-item
-        = link_to "Mainīt bildi", edit_profile_path(current_user.username), class: "has-text-dark is-size-5"
-      a.navbar-item
-        = link_to "Logout", destroy_user_session_path, method: :delete, class:"has-text-dark is-size-5"
+      = link_to 'I Recommend', root_path, class: "has-text-dark is-size-7"
+      br
+      = link_to "Mainīt paroli", edit_user_registration_path, class: "has-text-dark is-size-7"
+      br
+      = link_to "Mainīt bildi", edit_profile_path(current_user.username), class: "has-text-dark is-size-7"
+      br
+      = link_to "Logout", destroy_user_session_path, method: :delete, class:"has-text-dark is-size-7"

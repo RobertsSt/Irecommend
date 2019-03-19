@@ -23,17 +23,17 @@ section.section
                     - if tweet.image.present?
                       = image_tag(tweet.image.url, class: "img")
                 nav.level
-                  .level-left.is-mobile
+                  .level-left.is-mobile.
                     = link_to tweet, class:"level-item" do
-                      span.icon
+                      span.icon.has-text-dark
                         i.fa.fa-link aria-hidden="true"
-                      - if tweet.user.id === current_user.id
-                        = link_to edit_tweet_path(tweet), class: "level-item" do
-                          span.icon
-                            i.fa.fa-edit aria-hidden="true"
-                        = link_to tweet, method: :delete, class: "level-item", data: { confirm: "Are you sure you want to delete this tweet?"} do
-                          span.icon
-                            i.fa.fa-trash aria-hidden="true"
+                    - if tweet.user.id === current_user.id
+                      = link_to edit_tweet_path(tweet), class: "level-item" do
+                        span.icon.has-text-dark
+                          i.fa.fa-edit aria-hidden="true"
+                      = link_to tweet, method: :delete, class: "level-item", data: { confirm: "Are you sure you want to delete this tweet?"} do
+                        span.icon.has-text-dark
+                          i.fa.fa-trash aria-hidden="true"
               .media-right
                 small
                   - time = Time.now - tweet.created_at

@@ -11,36 +11,36 @@ html
     meta name="viewport" content="width=device-width, initial-scale=1"
 
   body class=('background' if devise_controller?)
-    nav.navbar.is-dark.is-fixed-top
-      div.container
-        .navbar-brand
-          = link_to root_path, class: "navbar-item" do
+    nav class="navbar is-dark is-fixed-top" role="navigation" aria-label="main navigation"
+      .container
+        div class="navbar-brand"
+          a class="navbar-item" href="/"
             span.fa-stack.fa-1x
               i.fas.fa-certificate.fa-stack-2x.has-text-light
               i.fas.fa-thumbs-up.fa-stack-1x.has-text-dark
-            h1.title.is-5 &nbsp Home
-        .navbar-menu id="navbarExample"
-          div.navbar-end
-            div.navbar-item
-              div.field.is-grouped
-                - if user_signed_in?
-                  p.control
-                    = link_to 'I recommend', root_path, class: "button is-light is-rounded"
-                  div.navbar-item.has-dropdown.is-hoverable
-                    = link_to(profile_path(current_user.username), html_options = {}) do
-                      figure.image.imagepadd
-                        = profile_avatar_select(current_user)
-                    a.navbar-link
-                    div.navbar-dropdown
-                      = link_to "Mainīt paroli", edit_user_registration_path
-                      br
-                      = link_to "Mainīt bildi", edit_profile_path(current_user.username)
-                  p
-                  = link_to "Logout", destroy_user_session_path, method: :delete, class:"button is-dark is-rounded is-outlined is-inverted"
-                - else
-                  p.control
-                  = link_to 'Sign In', new_user_session_path, class: "button is-dark is-rounded"
-                  p.control
-                  = link_to 'Sign Up', new_user_registration_path, class: "button is-dark is-rounded"
+            h1.title.is-5 Home
+
+          a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample"
+            span aria-hidden="true"
+            span aria-hidden="true"
+            span aria-hidden="true"
+
+        div id="navbarBasicExample" class="navbar-menu"
+          div class="navbar-start"
+          div class="navbar-end"
+            div class="navbar-item has-dropdown is-hoverable"
+              a class="navbar-link" href="#{current_user.username}"
+                | Profile
+
+              div class="navbar-dropdown"
+                a class="navbar-item" href="users/edit"
+                  | Mainīt paroli
+                a class="navbar-item" href="#{current_user.username}/edit"
+                  | Mainīt bildi
+            div class="navbar-item"
+              div class="buttons"
+                a class="button is-dark is-rounded is-outlined is-inverted" href="users/sign_out"
+                  strong Logout
+
     = render 'layouts/flash_messages'
     = yield
