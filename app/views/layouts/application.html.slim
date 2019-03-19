@@ -28,19 +28,20 @@ html
         div id="navbarBasicExample" class="navbar-menu"
           div class="navbar-start"
           div class="navbar-end"
-            div class="navbar-item has-dropdown is-hoverable"
-              a class="navbar-link" href="#{current_user.username}"
-                strong Profile
+            - if user_signed_in?
+              div class="navbar-item has-dropdown is-hoverable"
+                a class="navbar-link" href="#{current_user.username}"
+                  strong Profile
 
-              div class="navbar-dropdown"
-                a class="navbar-item" href="users/edit"
-                  | Mainīt paroli
-                a class="navbar-item" href="#{current_user.username}/edit"
-                  | Mainīt bildi
-            div class="navbar-item"
-              div class="buttons"
-                a class="button is-dark is-rounded is-outlined is-inverted" href="users/sign_out"
-                  | Logout
+                div class="navbar-dropdown"
+                  a class="navbar-item" href="users/edit"
+                    | Mainīt paroli
+                  a class="navbar-item" href="#{current_user.username}/edit"
+                    | Mainīt bildi
+              div class="navbar-item"
+                div class="buttons"
+                  a
+                    = link_to "Logout", destroy_user_session_path, method: :delete, class:"button is-dark is-rounded is-outlined is-inverted"
 
     = render 'layouts/flash_messages'
     = yield
