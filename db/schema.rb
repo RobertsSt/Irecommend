@@ -10,7 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_03_14_101548) do
+ActiveRecord::Schema.define(version: 2019_04_01_082310) do
+
+  create_table "categories", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "comments", force: :cascade do |t|
     t.integer "user_id"
@@ -38,6 +44,7 @@ ActiveRecord::Schema.define(version: 2019_03_14_101548) do
     t.string "image_content_type"
     t.integer "image_file_size"
     t.datetime "image_updated_at"
+    t.integer "category_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -60,6 +67,7 @@ ActiveRecord::Schema.define(version: 2019_03_14_101548) do
     t.integer "avatar_file_size"
     t.datetime "avatar_updated_at"
     t.text "bio"
+    t.boolean "admin"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["username"], name: "index_users_on_username", unique: true

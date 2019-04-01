@@ -11,6 +11,12 @@ class UsersController < ApplicationController
     end
   end
 
+  def edit
+    if @user != current_user
+      redirect_to root_path, alert: 'Nav piekļuve'
+    end
+  end
+
   def followings
   end
 
@@ -24,13 +30,17 @@ class UsersController < ApplicationController
   end
 
   def update
-    if @user.update(user_params)
-      flash[:success] = 'Your profile has vbeen updated.'
-      redirect_to profile_path(@user.username)
+    if @user == current_user
+      if @user.update(user_params)
+        flash[:success] = 'Your profile has vbeen updated.'
+        redirect_to profile_path(@user.username)
+      else
+        @user.errors.full_messages
+        flash[:error] = @user.errors.full_messages
+        render :edit
+      end
     else
-      @user.errors.full_messages
-      flash[:error] = @user.errors.full_messages
-      render :edit
+      redirect_to profile_path(@user.username)
     end
   end
 

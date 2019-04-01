@@ -29,7 +29,11 @@
           .column.is-9
             - if tweet.comments.present?
               hr class="dropdown-divider"
-              = render tweet.comments
+              - if tweet.comments.count > 4
+                = render tweet.comments
+                = link_to 'Load more', tweet, class: "button is-light is-rounded"
+              - else
+                = render tweet.comments
         nav.level
           .level-left.is-mobile
             = link_to tweet, class:"level-item" do

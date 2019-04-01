@@ -1,10 +1,10 @@
-div.comment-padding
+.comment-padding
   .has-background-light
     = link_to "@" + comment.user.username, profile_path(comment.user.username), class: "has-text-dark"
   .columns
-    .column.is-10
+    .column.is-11
       = comment.content
-    .column.is-2
-      - if comment.user == current_user
+    .column.is-1
+      - if comment.user == current_user || comment.tweet.user_id == current_user.id || current_user.admin
         = link_to tweet_comment_path(comment.tweet, comment), method: :delete, data: { confirm: "Are you sure?" }, remote: true do
           span.fas.fa-trash.delete-comment

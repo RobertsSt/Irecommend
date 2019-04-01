@@ -1,0 +1,13 @@
+nav.panel
+  p.panel-heading Kategorijas
+  .panel-block
+      .media-content.is-width-200px
+        .content
+          .categories
+            p
+            - @categories.each do | category |
+              .button.is-rounded.is-small.is-inverted.is-outlined.is-dark.has-text-dark
+                = category.name
+              | &nbsp
+              | &nbsp
+              | &nbsp

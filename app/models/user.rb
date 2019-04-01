@@ -17,6 +17,14 @@ class User < ApplicationRecord
   validates_format_of :username, with: /^[a-zA-Z0-9_\.]*$/, :multiline => true #username cant be email (@)
 
   attr_writer :login
+  
+  after_validation :set_user_role
+
+  def set_user_role
+    if self.admin != 1
+      self.admin == 0
+    end
+  end
 
   def login
     @login || self.username || self.email
@@ -39,7 +47,6 @@ class User < ApplicationRecord
       end
     end
   end
-  
   def whom_to_follow(limit = 3)
     User.order("random()").where("users.id != (?)", id).joins(
       "LEFT OUTER JOIN followings ON followings.following_user_id = users.id AND followings.follower_user_id = #{id}"

@@ -1,17 +1,18 @@
-table
-  br
-  tr
-    th Vārds
-    th Lietotājvārds
-    th Ē-pasts
-    th show
-    th edit
-    th destroy
-  - @users.each do |user|
+.container
+  table
+    br
     tr
-      td = user.name
-      td = user.username
-      td = user.email
-      td = link_to "show", profile_path(user.username)
-      td = link_to 'Edit', edit_admin_user_path(user)
-      td = link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' }
+      th Vārds
+      th Lietotājvārds
+      th Ē-pasts
+      th Edit posts
+      th Edit user
+      th Destroy
+    - @users.each do |user|
+      tr
+        td = link_to user.name, profile_path(user.username), class:"has-text-dark"
+        td = link_to user.username, profile_path(user.username), class:"has-text-dark"
+        td = link_to user.email, profile_path(user.username), class:"has-text-dark"
+        td = link_to "Edit posts", profile_path(user.username)
+        td = link_to 'Edit', edit_admin_user_path(user)
+        td = link_to 'Destroy', user, method: :delete, class:"has-text-danger", data: { confirm: 'Are you sure?' }

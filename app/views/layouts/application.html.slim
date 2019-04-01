@@ -18,7 +18,7 @@ html
             span.fa-stack.fa-1x
               i.fas.fa-certificate.fa-stack-2x.has-text-light
               i.fas.fa-thumbs-up.fa-stack-1x.has-text-dark
-            h1.title.is-5 Home
+            h1.title.is-5 I recommend
 
           a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample"
             span aria-hidden="true"
@@ -34,12 +34,15 @@ html
                   strong Profile
 
                 div class="navbar-dropdown"
-                  a class="navbar-item" href="users/edit"
+                  a class="navbar-item" href="#{edit_user_registration_path}"
                     | Mainīt paroli
-                  a class="navbar-item" href="#{current_user.username}/edit"
+                  a class="navbar-item" href="#{edit_user_path(current_user.username)}"
                     | Mainīt bildi
               div class="navbar-item"
                 div class="buttons"
+                  - if current_user.admin
+                    a
+                      = link_to "Admin", admin_users_path, class:"button is-dark is-rounded is-outlined is-inverted"
                   a
                     = link_to "Logout", destroy_user_session_path, method: :delete, class:"button is-dark is-rounded is-outlined is-inverted"
 

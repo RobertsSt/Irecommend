@@ -1,19 +1,20 @@
 class TweetsController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_tweet, only: [:show, :edit, :update, :destroy]
-  before_action :authenticate_user!, except: [:index, :show]
 
   # GET /tweets
   # GET /tweets.json
   def index
-    if user_signed_in?
-      @alltweets = Tweet.preload("user").where(user_id: current_user.followings_as_follower.select("following_user_id")).order("created_at DESC")
-      @tweets = @alltweets.page(params[:page]).per(20)
-      @tweet = Tweet.new
-      @followers = Following.where(following_user: current_user)
-      @followings = Following.where(follower_user: current_user)
+    if @category = Category.find_by(id: params[:category])
+      @alltweets = @category.tweets.order("created_at DESC")
     else
-      redirect_to "/users/sign_in"
+      @alltweets = Tweet.preload("user").where(user_id: current_user.followings_as_follower.select("following_user_id")).order("created_at DESC")
     end
+    @tweets = @alltweets.page(params[:page]).per(20)
+    @tweet = Tweet.new
+    @followers = Following.where(following_user: current_user)
+    @followings = Following.where(follower_user: current_user)
+    @categories = Category.all
   end
 
   # GET /tweets/1

@@ -1,0 +1,48 @@
+section.section
+  .container
+    .columns.is-centered
+      .column.is-4
+        .box
+          h2.title.is-2 Edit user
+          = simple_form_for(@user, url: registration_path(@user), html: { method: :put }) do |f|
+            = f.error_notification
+            .field
+              .image.img
+                = profile_avatar_select(@user)
+            .field
+              .control
+                = f.file_field :avatar, onChange: 'loadFile(event)'
+            .field
+              .control
+                strong Bio:
+                br
+                = f.text_area :bio, label: false, rows: 4, cols: 50
+
+            .field
+              .control
+                = f.input :name, required: true, autofocus: true, input_html: { class: "input"}, wrapper: false, label_html: { class: "label" }
+
+            .field
+              .control
+                = f.input :username, required: true,  input_html: { class: "input"}, wrapper: false, label_html: { class: "label" }
+
+            .field
+              .control
+                = f.input :email, required: true, input_html: { class: "input"}, wrapper: false, label_html: { class: "label" }
+
+            .field
+              .control
+                = f.input :password, autocomplete: "off", hint: "leave it blank if you don't want to change it", required: false, input_html: { class: "input"}, wrapper: false, label_html: { class: "label" }
+
+            .field
+              .control
+                = f.input :password_confirmation, required: false, input_html: { class: "input"}, wrapper: false, label_html: { class: "label" }
+
+            = f.radio_button :admin, 1, checked: @user.admin
+            = label_tag(@user.admin, 'Administrators')
+            br
+            = f.radio_button :admin, 0, checked: !@user.admin
+            = label_tag(@user.admin, 'Lietotājs')
+            br
+
+            = f.button :submit, "Update", class:"button is-dark is-rounded"
