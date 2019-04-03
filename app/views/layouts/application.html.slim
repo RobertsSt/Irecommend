@@ -31,20 +31,20 @@ html
             - if user_signed_in?
               div class="navbar-item has-dropdown is-hoverable"
                 a class="navbar-link" href="#{current_user.username}"
-                  strong Profile
+                  strong Profils
 
                 div class="navbar-dropdown"
-                  a class="navbar-item" href="#{edit_user_registration_path}"
-                    | Mainīt paroli
                   a class="navbar-item" href="#{edit_user_path(current_user.username)}"
-                    | Mainīt bildi
+                    | Mainīt bildi, bio
+                  a class="navbar-item" href="#{edit_user_registration_path}"
+                    | Mainīt paroli, vārdu
               div class="navbar-item"
                 div class="buttons"
                   - if current_user.admin
                     a
                       = link_to "Admin", admin_users_path, class:"button is-dark is-rounded is-outlined is-inverted"
                   a
-                    = link_to "Logout", destroy_user_session_path, method: :delete, class:"button is-dark is-rounded is-outlined is-inverted"
+                    = link_to "Izlogoties", destroy_user_session_path, method: :delete, class:"button is-dark is-rounded is-outlined is-inverted"
 
     = render 'layouts/flash_messages'
     = yield

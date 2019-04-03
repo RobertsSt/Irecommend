@@ -5,7 +5,8 @@ class TweetsController < ApplicationController
   # GET /tweets
   # GET /tweets.json
   def index
-    if @category = Category.find_by(id: params[:category])
+    @current_category = params[:category]
+    if @category = Category.find_by(id: @current_category)
       @alltweets = @category.tweets.order("created_at DESC")
     else
       @alltweets = Tweet.preload("user").where(user_id: current_user.followings_as_follower.select("following_user_id")).order("created_at DESC")
@@ -82,6 +83,6 @@ class TweetsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def tweet_params
-      params.require(:tweet).permit(:image, :tweet)
+      params.require(:tweet).permit(:image, :tweet, :category_id)
     end
 end

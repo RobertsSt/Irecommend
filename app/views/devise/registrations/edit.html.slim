@@ -8,25 +8,23 @@ section.section
             = f.error_notification
             div.field
               div.control
-                = f.input :name, required: true, autofocus: true, input_html: { class: "input"}, wrapper: false, label_html: { class: "label" }
+                = f.input :name, label: 'Vārds', required: true, autofocus: true, input_html: { class: "input"}, wrapper: false, label_html: { class: "label" }
             div.field
               div.control
-                = f.input :username, required: true,  input_html: { class: "input"}, wrapper: false, label_html: { class: "label" }
-            div.field
-              div.control
-                = f.input :email, required: true, input_html: { class: "input"}, wrapper: false, label_html: { class: "label" }
+                = f.input :username, label: 'Lietotājvards', required: true,  input_html: { class: "input"}, wrapper: false, label_html: { class: "label" }
+
             div.field
                - if devise_mapping.confirmable? && resource.pending_reconfirmation?
                 p Currently waiting confirmation for: = resource.unconfirmed_email
             div.field
               div.control
-                = f.input :password, autocomplete: "off", hint: "leave it blank if you don't want to change it", required: false, input_html: { class: "input"}, wrapper: false, label_html: { class: "label" }
+                = f.input :password, label: 'Jaunā parole', autocomplete: "off", hint: "Atstāj tukšu ja nevēlies mainīt", required: false, input_html: { class: "input"}, wrapper: false, label_html: { class: "label" }
             div.field
               div.control
-                = f.input :password_confirmation, required: false, input_html: { class: "input"}, wrapper: false, label_html: { class: "label" }
+                = f.input :password_confirmation, label: 'Paroli vēlreiz', required: false, input_html: { class: "input"}, wrapper: false, label_html: { class: "label" }
             div.field
               div.control
-                = f.input :current_password, hint: "we need your current password to confirm your changes", required: true, input_html: { class: "input"}, wrapper: false, label_html: { class: "label" }
-            = f.button :submit, "Update", class:"button is-dark is-rounded"
-          h4.is-5 Do you want to cancel your account?
-          = link_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete
+                = f.input :current_password, label: 'Pašreizējā parole', hint: "Ir nepieciešams ievadīt pašreizējo paroli, lai varētu apstiprināt izmaiņas", required: true, input_html: { class: "input"}, wrapper: false, label_html: { class: "label" }
+            = f.button :submit, "Atjaunināt", class:"button is-dark is-rounded"
+          h4.is-5 Vai vēlies dzēst savu profilu?
+          = link_to "Dzēst profilu", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete

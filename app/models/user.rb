@@ -9,7 +9,9 @@ class User < ApplicationRecord
   has_many :followings_as_follower, class_name: "Following", foreign_key: "follower_user_id", dependent: :destroy
   has_many :followings_as_following, class_name: "Following", foreign_key: "following_user_id", dependent: :destroy
   has_many :comments, dependent: :destroy
+  has_many :likes, dependent: :destroy
 
+  validates_length_of :bio, maximum: 110
   has_attached_file :avatar, styles: { medium: '152x152#' }
   validates_attachment_content_type :avatar, content_type: /\Aimage\/.*\Z/
 
@@ -17,12 +19,12 @@ class User < ApplicationRecord
   validates_format_of :username, with: /^[a-zA-Z0-9_\.]*$/, :multiline => true #username cant be email (@)
 
   attr_writer :login
-  
+
   after_validation :set_user_role
 
   def set_user_role
-    if self.admin != 1
-      self.admin == 0
+    if self.admin != true
+      self.admin = false
     end
   end
 

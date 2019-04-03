@@ -5,8 +5,14 @@
         = profile_avatar_select(current_user)
     .media-content
       = render 'tweets/form'
+- if @current_category
+  strong.small
+    = "Kategorija: " if @current_category == "1"
+    = Category.find_by(id: @current_category.to_i).name
+    br
+    | &nbsp
 - @tweets.each do | tweet |
-  .box
+  .box id="tweet_id_#{tweet.id}"
     article.media
       .media-left
         figure.image.is-64x64
@@ -26,16 +32,21 @@
             - if tweet.image.present?
               = image_tag(tweet.image.url, class: "img")
         .columns
-          .column.is-9
+          .column
             - if tweet.comments.present?
               hr class="dropdown-divider"
               - if tweet.comments.count > 4
-                = render tweet.comments
-                = link_to 'Load more', tweet, class: "button is-light is-rounded"
+                = render tweet.comments.limit(4)
+                .has-text-centered title="Ielādēt vēl komentārus"
+                  = link_to tweet do
+                    i.fas.fa-ellipsis-h
               - else
                 = render tweet.comments
         nav.level
-          .level-left.is-mobile
+          .level-left
+            = link_to tweet_likes_path(tweet), method: :post
+              i.far.fa-thumbs-up.has-text-dark
+          .level-item.is-mobile.has-text-centered.has-padding-right-15px
             = link_to tweet, class:"level-item" do
               span.icon
                 i.fas.fa-link.has-text-dark &nbsp
@@ -71,9 +82,17 @@
       ul
         - if page > 1
           li
-            = link_to "?page=#{page - 1}"
-              i.fas.fa-angle-double-left
+            - if @current_category
+              = link_to "?category=#{@current_category}&page=#{page - 1}"
+                i.fas.fa-angle-double-left
+            - else
+              = link_to "?page=#{page - 1}"
+                i.fas.fa-angle-double-left
         - if @alltweets.count > page * 20
           li
-            = link_to "?page=#{page > 1 ? page + 1 : 2}" do
-              i.fas.fa-angle-double-right
+            - if @current_category
+              = link_to "?category=#{@current_category}&page=#{page > 1 ? page + 1 : 2}" do
+                i.fas.fa-angle-double-right
+            - else
+              = link_to "?page=#{page > 1 ? page + 1 : 2}" do
+                i.fas.fa-angle-double-right

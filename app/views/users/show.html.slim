@@ -26,22 +26,27 @@ section.section
                     - if tweet.comments.present?
                       hr class="dropdown-divider"
                       - if tweet.comments.count > 4
-                        = render tweet.comments
-                        = link_to 'Load more', tweet, class: "button is-light is-rounded"
+                        = render tweet.comments.limit(4)
+                        .has-text-centered title="Load more comments"
+                          = link_to tweet do
+                            i.fas.fa-ellipsis-h
                       - else
                         = render tweet.comments
-                nav.level
-                  .level-left.is-flex-mobile
+                nav.level.has-padding-left-29px
+                  .level-left
+                    = link_to tweet_likes_path(tweet), method: :post
+                      i.far.fa-thumbs-up.has-text-dark
+                  .level-item.is-flex-mobile.has-text-centered
                       = link_to tweet, class:"level-item" do
                         span.icon.has-text-dark
                           i.fa.fa-link aria-hidden="true" &nbsp
                           | &nbsp
-                          i.far.fa-comments.has-text-dark
+                          i.far.fa-comments.has-text-dark.has-right-margin
                       - if tweet.user.id === current_user.id || current_user.admin
                         = link_to edit_tweet_path(tweet), class: "level-item" do
                           span.icon.has-text-dark
                             i.fa.fa-edit aria-hidden="true"
-                        = link_to tweet, method: :delete, class: "level-item", data: { confirm: "Are you sure you want to delete this tweet?"} do
+                        = link_to tweet_path(tweet.id), method: :delete, class: "level-item", data: { confirm: "Vai tiešām vēlies izdzēst šo ieteikumu?"} do
                           span.icon.has-text-dark
                             i.fa.fa-trash aria-hidden="true"
               .media-right

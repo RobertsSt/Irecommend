@@ -7,6 +7,9 @@ Rails.application.routes.draw do
   resources :tweets do
     resources :comments
   end
+  resources :tweets do
+    resources :likes
+  end
   resources :followings
   resources :followers
   resources :user_tweets

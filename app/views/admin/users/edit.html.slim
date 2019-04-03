@@ -4,7 +4,7 @@ section.section
       .column.is-4
         .box
           h2.title.is-2 Edit user
-          = simple_form_for(@user, url: registration_path(@user), html: { method: :put }) do |f|
+          = simple_form_for(@user, url: admin_user_path(@user), html: { method: :put }) do |f|
             = f.error_notification
             .field
               .image.img

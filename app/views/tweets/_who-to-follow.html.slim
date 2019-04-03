@@ -1,5 +1,5 @@
 nav.panel
-  p.panel-heading Who to Follow
+  p.panel-heading Kam sekot
   - current_user.whom_to_follow(3).each do |random_user|
     .panel-block
       .media-left
@@ -13,4 +13,4 @@ nav.panel
           sup = link_to "@#{random_user.username}", profile_path(random_user.username), class: "has-text-dark"
       .pull-right
         .content
-          = link_to 'Follow', followings_path(following_user_id: random_user.id), class: "button is-light is-rounded", method: "post"
+          = link_to 'Sekot', followings_path(following_user_id: random_user.id), class: "button is-light is-rounded", method: "post"
