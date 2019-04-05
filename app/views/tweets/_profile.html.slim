@@ -1,36 +1,32 @@
 nav.panel
   p.panel-heading Profils
   .panel-block
-      .media-left
-        figure.image.is-64x64
-          = profile_avatar_select(current_user)
-      .media-content.is-width-200px
-        .content
-          p
-            strong
-              = link_to current_user.name, profile_path(current_user.username), class: "has-text-dark"
-              br
-            small
-              = link_to "@" + current_user.username, profile_path(current_user.username), class: "has-text-dark"
-              br
-                = current_user.bio
-  .panel-block
-    .level.is-mobile
-      .level-item
-        div.has-right-margin
+    .media-left
+      figure.image.is-64x64
+        = profile_avatar_select(current_user)
+    .media-content.is-width-200px
+      .content
+        p
+          strong
+            = link_to current_user.name, profile_path(current_user.username), class: "has-text-dark"
+            br
+          small
+            = link_to "@" + current_user.username, profile_path(current_user.username), class: "has-text-dark"
+            br
+              = current_user.bio
+  .panel-block.profile
+        div
           p.heading
             = link_to "Ieteikumi", profile_path(current_user.username), class: "has-text-dark"
-          p.title.is-6.has-text-centered
+          p.title.is-6
             =link_to current_user.tweets.count,  profile_path(current_user.username), class: "has-text-dark"
-      .level-item
-        div.has-right-margin
+        div
           p.heading title="Cilvēki kam tu seko"
             = link_to "Sekojamie", followings_user_path(current_user.username), class: "has-text-dark"
-          p.title.is-6.has-text-centered
+          p.title.is-6
             =link_to @followings.count, followings_user_path(current_user.username), class: "has-text-dark"
-      .level-item
         div
           p.heading title="cilvēki, kas seko tev"
             = link_to "Sekotāji", followers_user_path(current_user.username), class: "has-text-dark"
-          p.title.is-6.has-text-centered
+          p.title.is-6
             =link_to @followers.count, followers_user_path(current_user.username), class: "has-text-dark"

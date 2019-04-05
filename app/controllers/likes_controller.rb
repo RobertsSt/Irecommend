@@ -1,6 +1,10 @@
 class LikesController < ApplicationController
   before_action :set_tweet
 
+  def index
+    @likes = Like.where(tweet_id: @tweet.id)
+  end
+
   def create
     @like = Like.new
     @like.tweet_id = @tweet.id
@@ -17,6 +21,17 @@ class LikesController < ApplicationController
     end
   end
 
+  def destroy
+    @like = @tweet.likes.find(params[:id])
+
+    if @like.user_id == current_user.id
+     @like.delete
+     respond_to do |format|
+       format.html { redirect_to root_path }
+       format.js
+     end
+   end
+  end
 
   private
 

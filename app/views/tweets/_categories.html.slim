@@ -5,5 +5,5 @@ nav.panel
         .content
           .categories
             - @categories.each do | category |
-              .button.is-rounded.is-small.is-inverted.is-outlined.is-dark.has-text-dark.has-margin-5px
+              .button.is-rounded.is-small.is-inverted.is-outlined.is-dark.has-text-dark.has-margin-3px
                 = link_to category.name, "?category=#{category.id}"

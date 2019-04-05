@@ -24,23 +24,19 @@
           .pull-right
             .content
               = link_to 'Sekot', followings_path(following_user_id: @user.id), class: "button is-dark is-rounded pull-right", method: "post"
-    .panel-block
-      .level.is-mobile
-        .level-item
-          div.has-right-margin
-            p.heading
-              = link_to "Ieteikumi", profile_path, class: "has-text-dark"
-            p.title.is-6.has-text-centered
-              =link_to @user.tweets.count, profile_path, class: "has-text-dark"
-        .level-item
-          div.has-right-margin
-            p.heading title="cilvēki, kam tu seko"
-              = link_to "Sekojumi", followings_user_path(@user.username), class: "has-text-dark"
-            p.title.is-6.has-text-centered
-              =link_to @followings.count, followings_user_path(@user.username), class: "has-text-dark"
-          .level-item
-          div
-            p.heading title="cilvēki, kas seko tev"
-              = link_to "Sekotāji", followers_user_path(@user.username), class: "has-text-dark"
-            p.title.is-6.has-text-centered
-              =link_to @followers.count, followers_user_path(@user.username), class: "has-text-dark"
+    .panel-block.profile
+      div
+        p.heading
+          = link_to "Ieteikumi", profile_path, class: "has-text-dark"
+        p.title.is-6
+          =link_to @user.tweets.count, profile_path, class: "has-text-dark"
+      div
+        p.heading title="cilvēki, kam tu seko"
+          = link_to "Sekojumi", followings_user_path(@user.username), class: "has-text-dark"
+        p.title.is-6
+          =link_to @followings.count, followings_user_path(@user.username), class: "has-text-dark"
+      div
+        p.heading title="cilvēki, kas seko tev"
+          = link_to "Sekotāji", followers_user_path(@user.username), class: "has-text-dark"
+        p.title.is-6
+          =link_to @followers.count, followers_user_path(@user.username), class: "has-text-dark"

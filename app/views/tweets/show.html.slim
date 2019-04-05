@@ -1,9 +1,9 @@
 section.section
   .container
     .columns
-      .column.is-one-third
+      .column.is-one-quarter-fullhd.is-one-third-widescreen.is-one-third-desktop.is-two-fifths-tablet
         = render 'profile'
-      .column.is-three-fifths
+      .column.is-three-fifths.is-offset-one-fifths.has-flex-1
         .box
           article.media
             .media-left
@@ -22,27 +22,35 @@ section.section
                   br
                   - if @tweet.image.present?
                     = image_tag(@tweet.image.url, class: "img")
-              nav.level
-                .level-left
-                  = link_to tweet_likes_path(@tweet), method: :post
-                    i.far.fa-thumbs-up.has-text-dark
-                .level-item.is-mobile
-                  - if @tweet.user.id == current_user.id || current_user.admin
-                    = link_to edit_tweet_path(@tweet), class: "level-tem" do
-                      span.icon.has-text-dark
-                        i.fa.fa-pencil
-                    = link_to @tweet, method: :delete, data: { confirm: "Vai tiešām vēlies izdzēst šo ieteikumu?"} do
-                      span.icon.has-text-dark
-                        i.fa.fa-trash-o
               hr class="dropdown-divider"
               .columns
                 .column
                   - if @tweet.comments.present?
                     = render @tweet.comments
                   = simple_form_for([@tweet, @tweet.comments.build]) do |f|
-                    = f.text_area :content, placeholder: 'Pievienot komentāru...',rows: 2, cols: 50
-                    br
-                    = f.button :submit, title="Izveidot"
+                    .has-display-flex
+                      = f.text_area :content, placeholder: 'Pievienot komentāru...',rows: 3, cols: 45, autofocus: true, class: "gray-border-1px has-flex-1"
+                    = f.button :submit, title="Izveidot", class: "has-margin-left-10px is-small button is-dark is-outlined is-rounded"
+              nav.level
+                .level-left
+                  - unlike = Like.find_by(user_id: current_user.id, tweet_id: @tweet.id)
+                  - if unlike
+                    = link_to tweet_like_path(@tweet, unlike.id), method: :delete
+                      i.fas.fa-thumbs-up.has-text-dark
+                  - else
+                    = link_to tweet_likes_path(@tweet), method: :post
+                      i.far.fa-thumbs-up.has-text-dark
+                  | &nbsp
+                  = link_to tweet_likes_path(@tweet), class: "has-text-dark"
+                    = Like.where(tweet_id: @tweet.id).count
+                .level-item.is-flex-mobile.has-text-centered.has-padding-right-30px
+                    - if @tweet.user.id == current_user.id || current_user.admin
+                      = link_to edit_tweet_path(@tweet), class: "level-item" do
+                        span.icon.has-text-dark
+                          i.fa.fa-edit aria-hidden="true"
+                      = link_to tweet_path(@tweet.id), method: :delete, class: "level-item", data: { confirm: "Vai tiešām vēlies izdzēst šo ieteikumu?"} do
+                        span.icon.has-text-dark
+                          i.fa.fa-trash aria-hidden="true"
             .media-right
               small
                 - time = Time.now - @tweet.created_at

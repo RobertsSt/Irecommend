@@ -2,7 +2,7 @@ section.section
   .container
     .columns
       = render 'profile'
-      .column.is-three-fifths.is-offset-one-fifths
+      .column.is-three-fifths.is-offset-one-fifths.has-flex-1
         - @tweets.each do | tweet |
           .box
             article.media
@@ -32,17 +32,25 @@ section.section
                             i.fas.fa-ellipsis-h
                       - else
                         = render tweet.comments
-                nav.level.has-padding-left-29px
+                nav.level
                   .level-left
-                    = link_to tweet_likes_path(tweet), method: :post
-                      i.far.fa-thumbs-up.has-text-dark
+                    - unlike = Like.find_by(user_id: current_user.id, tweet_id: tweet.id)
+                    - if unlike
+                      = link_to tweet_like_path(tweet, unlike.id), method: :delete
+                        i.fas.fa-thumbs-up.has-text-dark
+                    - else
+                      = link_to tweet_likes_path(tweet), method: :post
+                        i.far.fa-thumbs-up.has-text-dark
+                    | &nbsp
+                    = link_to tweet_likes_path(tweet), class: "has-text-dark"
+                      = Like.where(tweet_id: tweet.id).count
                   .level-item.is-flex-mobile.has-text-centered
                       = link_to tweet, class:"level-item" do
                         span.icon.has-text-dark
                           i.fa.fa-link aria-hidden="true" &nbsp
                           | &nbsp
                           i.far.fa-comments.has-text-dark.has-right-margin
-                      - if tweet.user.id === current_user.id || current_user.admin
+                      - if tweet.user.id == current_user.id || current_user.admin
                         = link_to edit_tweet_path(tweet), class: "level-item" do
                           span.icon.has-text-dark
                             i.fa.fa-edit aria-hidden="true"

@@ -44,9 +44,17 @@
                 = render tweet.comments
         nav.level
           .level-left
-            = link_to tweet_likes_path(tweet), method: :post
-              i.far.fa-thumbs-up.has-text-dark
-          .level-item.is-mobile.has-text-centered.has-padding-right-15px
+            - unlike = Like.find_by(user_id: current_user.id, tweet_id: tweet.id)
+            - if unlike
+              = link_to tweet_like_path(tweet, unlike.id), method: :delete
+                i.fas.fa-thumbs-up.has-text-dark
+            - else
+              = link_to tweet_likes_path(tweet), method: :post
+                i.far.fa-thumbs-up.has-text-dark
+            | &nbsp
+            = link_to tweet_likes_path(tweet), class: "has-text-dark"
+              = Like.where(tweet_id: tweet.id).count
+          .level-item.is-mobile.has-text-centered.has-padding-right-30px
             = link_to tweet, class:"level-item" do
               span.icon
                 i.fas.fa-link.has-text-dark &nbsp
