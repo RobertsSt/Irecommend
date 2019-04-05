@@ -213,3 +213,20 @@ tr:nth-child(even) {
 .has-display-flex{
   display: flex;
 }
+
+section .box .media-content {
+  overflow-x: hidden;
+  .level .level-item{
+    margin-bottom: 0rem;
+  }
+}
+
+@media (min-width: 768px){
+  .is-visible-mobile-only {
+    display: none;
+  }
+}
+
+.has-margin-bottom-25px{
+  margin-bottom: 25px;
+}

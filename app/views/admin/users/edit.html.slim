@@ -13,30 +13,29 @@ section.section
               .control
                 = f.file_field :avatar, onChange: 'loadFile(event)'
             .field
-              .control
-                strong Bio:
-                br
-                = f.text_area :bio, label: false, rows: 4, cols: 50
+              strong Bio:
+              .control.has-display-flex
+                = f.text_area :bio, label: false, rows: 4, cols: 50, placeholder: 'Pievienot bio...', class: "gray-border-1px has-flex-1"
 
             .field
               .control
-                = f.input :name, required: true, autofocus: true, input_html: { class: "input"}, wrapper: false, label_html: { class: "label" }
+                = f.input :name, label: 'Vārds', required: true, autofocus: true, input_html: { class: "input"}, wrapper: false, label_html: { class: "label" }
 
             .field
               .control
-                = f.input :username, required: true,  input_html: { class: "input"}, wrapper: false, label_html: { class: "label" }
+                = f.input :username, label: 'Lietotājvārds', required: true,  input_html: { class: "input"}, wrapper: false, label_html: { class: "label" }
 
             .field
               .control
-                = f.input :email, required: true, input_html: { class: "input"}, wrapper: false, label_html: { class: "label" }
+                = f.input :email, label: 'Ēpasts', required: true, input_html: { class: "input"}, wrapper: false, label_html: { class: "label" }
 
             .field
               .control
-                = f.input :password, autocomplete: "off", hint: "leave it blank if you don't want to change it", required: false, input_html: { class: "input"}, wrapper: false, label_html: { class: "label" }
+                = f.input :password, label: 'Jaunā parole', autocomplete: "off", hint: "Atstāj tukšu ja nevēlies mainīt", required: false, input_html: { class: "input"}, wrapper: false, label_html: { class: "label" }
 
             .field
               .control
-                = f.input :password_confirmation, required: false, input_html: { class: "input"}, wrapper: false, label_html: { class: "label" }
+                = f.input :password_confirmation, label: 'Paroli vēlreiz', required: false, input_html: { class: "input"}, wrapper: false, label_html: { class: "label" }
 
             = f.radio_button :admin, 1, checked: @user.admin
             = label_tag(@user.admin, 'Administrators')

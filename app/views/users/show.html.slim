@@ -32,7 +32,7 @@ section.section
                             i.fas.fa-ellipsis-h
                       - else
                         = render tweet.comments
-                nav.level
+                nav.level.has-display-flex
                   .level-left
                     - unlike = Like.find_by(user_id: current_user.id, tweet_id: tweet.id)
                     - if unlike
@@ -44,7 +44,7 @@ section.section
                     | &nbsp
                     = link_to tweet_likes_path(tweet), class: "has-text-dark"
                       = Like.where(tweet_id: tweet.id).count
-                  .level-item.is-flex-mobile.has-text-centered
+                  .level-item.is-flex-mobile.has-text-centered.has-flex-1
                       = link_to tweet, class:"level-item" do
                         span.icon.has-text-dark
                           i.fa.fa-link aria-hidden="true" &nbsp

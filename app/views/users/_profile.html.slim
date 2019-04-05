@@ -32,7 +32,7 @@
           =link_to @user.tweets.count, profile_path, class: "has-text-dark"
       div
         p.heading title="cilvēki, kam tu seko"
-          = link_to "Sekojumi", followings_user_path(@user.username), class: "has-text-dark"
+          = link_to "Sekojamie", followings_user_path(@user.username), class: "has-text-dark"
         p.title.is-6
           =link_to @followings.count, followings_user_path(@user.username), class: "has-text-dark"
       div

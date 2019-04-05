@@ -2,17 +2,25 @@ section.section
   .container
     .columns
       - if user_signed_in?
-        .column.is-one-quarter-fullhd.is-one-third-widescreen.is-one-third-desktop.is-half-tablet
+        .column.is-one-quarter-fullhd.is-one-third-widescreen.is-one-third-desktop.is-two-fifths-tablet
           .is-postition-relative-mobile-only
             .is-postition-fixed.is-hidden-widescreen-only.is-hidden-desktop-only.is-hidden-tablet-only.is-hidden-mobile-only.is-hidden-mobile
               = render 'profile'
             .is-hidden-fullhd
               = render 'profile'
-              = render 'who-to-follow'
+              .is-hidden-mobile.has-margin-bottom-25px
+                = render 'who-to-follow'
               = render 'categories'
         .column
           = render 'feed'
+          .is-visible-mobile-only
+            = render 'who-to-follow'
         .column.is-one-quarter.is-hidden-widescreen-only.is-hidden-desktop-only.is-hidden-tablet-only.is-hidden-mobile-only
           .is-postition-fixed.is-width-300px
             = render 'who-to-follow'
             = render 'categories'
+            - if params[:search]
+              form action="#{profile_path(params[:search])}"
+                input type="text" name="search"
+                button type="submit"
+                  i class="fa fa-search"

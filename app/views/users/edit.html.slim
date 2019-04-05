@@ -14,10 +14,10 @@ section.section
                 = f.file_field :avatar, onChange: 'loadFile(event)'
             div.field
               div.control.has-display-flex
-                = f.text_area :bio, label: false, rows: 4, cols: 50, class: "bio"
+                = f.text_area :bio, label: "false", rows: 4, cols: 50, class: "bio", placeholder: 'Pievienot bio...'
               small
                 | 0 - 110 simboli
 
             div.field
               div.control
-                = f.submit "Update Profile", class: 'button is-dark is-rounded'
+                = f.submit "Atjaunināt profilu", class: 'button is-dark is-rounded'
