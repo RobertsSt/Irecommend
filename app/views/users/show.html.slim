@@ -21,7 +21,7 @@ section.section
                     = tweet.tweet
                     br
                     - if tweet.image.present?
-                      = image_tag(tweet.image.url, class: "img")
+                      = image_tag(tweet.image.url, class: "img-show")
 
                     - if tweet.comments.present?
                       hr class="dropdown-divider"
@@ -33,7 +33,8 @@ section.section
                       - else
                         = render tweet.comments
                 nav.level.has-display-flex
-                  .level-left
+                  .level-left.has-width-60px.has-display-flex
+                    - likes = Like.where(tweet_id: tweet.id)
                     - unlike = Like.find_by(user_id: current_user.id, tweet_id: tweet.id)
                     - if unlike
                       = link_to tweet_like_path(tweet, unlike.id), method: :delete
@@ -41,10 +42,39 @@ section.section
                     - else
                       = link_to tweet_likes_path(tweet), method: :post
                         i.far.fa-thumbs-up.has-text-dark
-                    | &nbsp
-                    = link_to tweet_likes_path(tweet), class: "has-text-dark"
-                      = Like.where(tweet_id: tweet.id).count
-                  .level-item.is-flex-mobile.has-text-centered.has-flex-1
+                    - if Like.where(tweet_id: tweet.id).count != 0
+                      | &nbsp
+                      .has-text-dark.pointer onclick="toggleShowLikes(#{tweet.id})"
+                        = likes.count
+                      div.modal id="likes-section-#{tweet.id}"
+                        div.modal-background onclick="toggleShowLikes(#{tweet.id})"
+                        div.modal-content
+                          .likes
+                            strong.has-margin-10px Patīk:
+                            - likes.each do | like |
+                              .gray-border-1px.align-center
+                                div.has-flex-1
+                                  figure.image.is-64x64
+                                    = profile_avatar_select(like.user)
+                                div.has-flex-4
+                                  strong
+                                    = like.user.name
+                                  br
+                                  small
+                                    = "@#{like.user.username}"
+                                div.has-align-top
+                                  small
+                                    - time = Time.now - like.created_at
+                                    - if time.round >= 0 && time.round < 60
+                                      = "#{time.round} sek"
+                                    - elsif (time/60).round > 0 && (time/60).round < 60
+                                      = "#{(time / 60).round} m"
+                                    - elsif (time / 60 / 60).round > 0 && (time / 60 / 60).round < 60
+                                      = "#{(time / 60 / 60).round} h"
+                                    - elsif (time / 60 / 60 / 24).round > 0 && (time / 60 / 60 / 24).round
+                                      = "#{(time / 60 / 60 / 24).round} d"
+                            button.modal-close.is-large aria-label="close" onclick="toggleShowLikes(#{tweet.id})"
+                  .level-item.is-flex-mobile.has-text-centered.has-flex-1.has-padding-right-30px
                       = link_to tweet, class:"level-item" do
                         span.icon.has-text-dark
                           i.fa.fa-link aria-hidden="true" &nbsp

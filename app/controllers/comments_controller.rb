@@ -7,12 +7,12 @@ class CommentsController < ApplicationController
 
     if @comment.save
       respond_to do |format|
-        format.html { redirect_to tweet_path(@tweet) }
+        format.html { redirect_back fallback_location: root_path }
         format.js
       end
     else
       flash[:alert] = "Check the comment form, something went horribly wrong."
-      render root_path
+      redirect_back fallback_location: root_path
     end
   end
 
@@ -22,10 +22,10 @@ class CommentsController < ApplicationController
     if @comment.user_id == current_user.id || @tweet.user_id == current_user.id || current_user.admin
      @comment.delete
      respond_to do |format|
-       format.html { redirect_to root_path }
+       format.html { redirect_back fallback_location: root_path }
        format.js
      end
-     redirect_to tweet_path(@tweet)
+     redirect_back fallback_location: root_path
    end
   end
 

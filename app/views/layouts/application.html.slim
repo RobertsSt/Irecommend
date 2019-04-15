@@ -10,7 +10,7 @@ html
     = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
     meta name="viewport" content="width=device-width, initial-scale=1"
 
-  body class=('background' if devise_controller?)
+  body class=('background' if devise_controller?) onclick="closeNavBar()"
     nav class="navbar is-dark is-fixed-top" role="navigation" aria-label="main navigation"
       .container
         div class="navbar-brand"
@@ -20,12 +20,12 @@ html
               i.fas.fa-thumbs-up.fa-stack-1x.has-text-dark
             h1.title.is-5 I recommend
 
-          a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample"
+          a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample" id="mobile-nav-bar" onclick="toggleNavBar()"
             span aria-hidden="true"
             span aria-hidden="true"
             span aria-hidden="true"
 
-        div id="navbarBasicExample" class="navbar-menu"
+        div class="navbar-menu" id="nav-bar"
           div class="navbar-start"
           div class="navbar-end"
             - if user_signed_in?

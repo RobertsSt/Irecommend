@@ -14,7 +14,7 @@ section.section
                 = f.file_field :avatar, onChange: 'loadFile(event)'
             .field
               strong Bio:
-              .control.has-display-flex
+              .control.has-display-flex.is-marginless
                 = f.text_area :bio, label: false, rows: 4, cols: 50, placeholder: 'Pievienot bio...', class: "gray-border-1px has-flex-1"
 
             .field

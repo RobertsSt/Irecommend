@@ -19,8 +19,9 @@ section.section
           .is-postition-fixed.is-width-300px
             = render 'who-to-follow'
             = render 'categories'
+            form
+              input type="text" name="search"
+              button type="submit"
+                i class="fa fa-search"
             - if params[:search]
-              form action="#{profile_path(params[:search])}"
-                input type="text" name="search"
-                button type="submit"
-                  i class="fa fa-search"
+              = profile_path(params[:search])
