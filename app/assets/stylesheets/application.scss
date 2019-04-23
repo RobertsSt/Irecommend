@@ -253,3 +253,55 @@ section .box .media-content {
 .pointer {
   cursor: pointer;
 }
+
+.activeSearch {
+  background-image: asset-url('searchicon.png');
+  background-position: 10px 10px;
+  background-repeat: no-repeat;
+  background-size: 20px 20px;
+  width: 100%;
+  font-size: 16px;
+  padding: 12px 20px 12px 40px;
+  border: 1px solid #ddd;
+  margin-bottom: 12px;
+}
+
+.activeUsernames {
+  display: none;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.has-display-block {
+  display: block !important;
+}
+
+.activeUsernames li a {
+  border: 1px solid #ddd;
+  margin-top: -1px; /* Prevent double borders */
+  background-color: #f6f6f6;
+  padding: 12px;
+  text-decoration: none;
+  font-size: 18px;
+  color: black;
+  display: block
+}
+
+#AllUsernames li a:hover:not(.header) {
+  background-color: #eee;
+}
+
+.dropzone {
+  width: 300px;
+  height: 300px;
+  border: 2px dashed #ccc;
+  color: #ccc;
+  line-height: 300px;
+  text-align: center;
+}
+
+.dropzone.dragover {
+  border-color: #000;
+  color: #000;
+}

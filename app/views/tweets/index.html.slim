@@ -6,22 +6,23 @@ section.section
           .is-postition-relative-mobile-only
             .is-postition-fixed.is-hidden-widescreen-only.is-hidden-desktop-only.is-hidden-tablet-only.is-hidden-mobile-only.is-hidden-mobile
               = render 'profile'
+              = render 'search'
             .is-hidden-fullhd
               = render 'profile'
               .is-hidden-mobile.has-margin-bottom-25px
                 = render 'who-to-follow'
+                - @search_id = 2
+                = render 'search'
               = render 'categories'
+
         .column
           = render 'feed'
           .is-visible-mobile-only
+            - @search_id = 3
+            .has-margin-bottom-25px
+              = render 'search'
             = render 'who-to-follow'
         .column.is-one-quarter.is-hidden-widescreen-only.is-hidden-desktop-only.is-hidden-tablet-only.is-hidden-mobile-only
           .is-postition-fixed.is-width-300px
             = render 'who-to-follow'
             = render 'categories'
-            form
-              input type="text" name="search"
-              button type="submit"
-                i class="fa fa-search"
-            - if params[:search]
-              = profile_path(params[:search])

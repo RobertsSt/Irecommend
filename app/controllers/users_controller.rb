@@ -15,6 +15,7 @@ class UsersController < ApplicationController
     if @user != current_user
       redirect_to root_path, alert: 'Nav piekļuve'
     end
+    @edit = "edit"
   end
 
   def followings

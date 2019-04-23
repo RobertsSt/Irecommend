@@ -5,132 +5,131 @@
         = profile_avatar_select(current_user)
     .media-content
       = render 'tweets/form'
-- if @current_category
-  strong.small
-    = "Kategorija: " if @current_category == "1"
-    = Category.find_by(id: @current_category.to_i).name
-    br
-    | &nbsp
-- @tweets.each do | tweet |
-  .box id="tweet_id_#{tweet.id}"
-    article.media
-      .media-left
-        figure.image.is-64x64
-          = profile_avatar_select(tweet.user)
-
-      .media-content
-        .content
-          strong
-            = link_to tweet.user.name, profile_path(tweet.user.username), class: "has-text-dark"
-            br
-          small
-            = link_to "@#{tweet.user.username}", profile_path(tweet.user.username), class: "has-text-dark"
-            br
-          p
-            = tweet.tweet
-            br
-            - if tweet.image.present?
-              = image_tag(tweet.image.url, class: "img")
-        - if tweet.comments.present?
-          .columns
-            .column
-              hr class="dropdown-divider"
-              - if tweet.comments.count > 4
-                = render tweet.comments.limit(4)
-                .has-text-centered title="Ielādēt vēl komentārus"
-                  = link_to tweet do
-                    i.fas.fa-ellipsis-h
+  - if @current_category
+    strong.small
+      = "Kategorija: " if @current_category == "1"
+      = Category.find_by(id: @current_category.to_i).name
+      br
+      | &nbsp
+  - @tweets.each do | tweet |
+    .box id="tweet_id_#{tweet.id}"
+      article.media
+        .media-left
+          figure.image.is-64x64
+            = profile_avatar_select(tweet.user)
+        .media-content
+          .content
+            strong
+              = link_to tweet.user.name, profile_path(tweet.user.username), class: "has-text-dark"
+              br
+            small
+              = link_to "@#{tweet.user.username}", profile_path(tweet.user.username), class: "has-text-dark"
+              br
+            p
+              = tweet.tweet
+              br
+              - if tweet.image.present?
+                = image_tag(tweet.image.url, class: "img")
+          - if tweet.comments.present?
+            .columns
+              .column
+                hr class="dropdown-divider"
+                - if tweet.comments.count > 4
+                  = render tweet.comments.limit(4)
+                  .has-text-centered title="Ielādēt vēl komentārus"
+                    = link_to tweet do
+                      i.fas.fa-ellipsis-h
+                - else
+                  = render tweet.comments
+          nav.level.has-display-flex
+            .level-left.has-width-60px.has-display-flex
+              - likes = Like.where(tweet_id: tweet.id)
+              - unlike = Like.find_by(user_id: current_user.id, tweet_id: tweet.id)
+              - if unlike
+                = link_to tweet_like_path(tweet, unlike.id), method: :delete
+                  i.fas.fa-thumbs-up.has-text-dark
               - else
-                = render tweet.comments
-        nav.level.has-display-flex
-          .level-left.has-width-60px.has-display-flex
-            - likes = Like.where(tweet_id: tweet.id)
-            - unlike = Like.find_by(user_id: current_user.id, tweet_id: tweet.id)
-            - if unlike
-              = link_to tweet_like_path(tweet, unlike.id), method: :delete
-                i.fas.fa-thumbs-up.has-text-dark
-            - else
-              = link_to tweet_likes_path(tweet), method: :post
-                i.far.fa-thumbs-up.has-text-dark
-            - if likes.count != 0
-              | &nbsp
-              .has-text-dark.pointer onclick="toggleShowLikes(#{tweet.id})"
-                = likes.count
-              div.modal id="likes-section-#{tweet.id}"
-                div.modal-background onclick="toggleShowLikes(#{tweet.id})"
-                div.modal-content
-                  .likes
-                    strong.has-margin-10px Patīk:
-                    - likes.each do | like |
-                      .gray-border-1px.align-center
-                        div.has-flex-1
-                          figure.image.is-64x64
-                            = profile_avatar_select(like.user)
-                        div.has-flex-4
-                          strong
-                            = like.user.name
-                          br
-                          small
-                            = "@#{like.user.username}"
-                        div.has-align-top
-                          small
-                            - time = Time.now - like.created_at
-                            - if time.round >= 0 && time.round < 60
-                              = "#{time.round} sek"
-                            - elsif (time/60).round > 0 && (time/60).round < 60
-                              = "#{(time / 60).round} m"
-                            - elsif (time / 60 / 60).round > 0 && (time / 60 / 60).round < 60
-                              = "#{(time / 60 / 60).round} h"
-                            - elsif (time / 60 / 60 / 24).round > 0 && (time / 60 / 60 / 24).round
-                              = "#{(time / 60 / 60 / 24).round} d"
-                    button.modal-close.is-large aria-label="close" onclick="toggleShowLikes(#{tweet.id})"
-          .level-item.is-mobile.has-text-centered.has-padding-right-60px.has-flex-1
-            = link_to tweet, class:"level-item" do
-              span.icon
-                i.fas.fa-link.has-text-dark &nbsp
+                = link_to tweet_likes_path(tweet), method: :post
+                  i.far.fa-thumbs-up.has-text-dark
+              - if likes.count != 0
                 | &nbsp
-                i.far.fa-comments.has-text-dark
-      .media-right
-        small
-          - time = Time.now - tweet.created_at
-          - if time.round == 1
-            = "#{time.round} sekunde"
-          - elsif time.round > 1 && time.round < 60
-            = "#{time.round} sekundes"
-          - elsif (time/60).round == 1
-            = "#{(time / 60).round} minūte"
-          - elsif (time/60).round > 1 && (time/60).round <= 60
-            = "#{(time / 60).round} minūtes"
-          - elsif (time / 60 / 60).round == 1
-            = "#{(time / 60 / 60).round} stunda"
-          - elsif (time / 60 / 60).round > 1 && (time / 60 / 60).round <= 24
-            = "#{(time / 60 / 60).round} stundas"
-          - elsif (time / 60 / 60 / 24).round == 1
-            = "#{(time / 60 / 60 / 24).round} diena"
-          - elsif (time / 60 / 60 / 24).round > 1
-            = "#{(time / 60 / 60 / 24).round} dienas"
-          br
-          | pirms
-- page = params[:page].to_i
-- if page == 0
-  - page = 1
-.column
-  .column.is-offset-2.is-8
-    .tabs.is-toggle.is-toggle-rounded.is-fullwidth.is-equal-spread
-      ul
-        - if page > 1
-          li
-            - if @current_category
-              = link_to "?category=#{@current_category}&page=#{page - 1}"
-                i.fas.fa-angle-double-left
-            - else
-              = link_to "?page=#{page - 1}"
-                i.fas.fa-angle-double-left
-        - if @alltweets.count > page * 20
-          li
-            - if @current_category
-              = link_to "?category=#{@current_category}&page=#{page > 1 ? page + 1 : 2}" do
-                i.fas.fa-angle-double-right
-            - else
-              = link_to "?page=#{page > 1 ? page + 1 : 2}" do
-                i.fas.fa-angle-double-right
+                .has-text-dark.pointer onclick="toggleShowLikes(#{tweet.id})"
+                  = likes.count
+                div.modal id="likes-section-#{tweet.id}"
+                  div.modal-background onclick="toggleShowLikes(#{tweet.id})"
+                  div.modal-content
+                    .likes
+                      strong.has-margin-10px Patīk:
+                      - likes.each do | like |
+                        .gray-border-1px.align-center
+                          div.has-flex-1
+                            figure.image.is-64x64
+                              = profile_avatar_select(like.user)
+                          div.has-flex-4
+                            strong
+                              = like.user.name
+                            br
+                            small
+                              = "@#{like.user.username}"
+                          div.has-align-top
+                            small
+                              - time = Time.now - like.created_at
+                              - if time.round >= 0 && time.round < 60
+                                = "#{time.round} sek"
+                              - elsif (time/60).round > 0 && (time/60).round < 60
+                                = "#{(time / 60).round} m"
+                              - elsif (time / 60 / 60).round > 0 && (time / 60 / 60).round < 60
+                                = "#{(time / 60 / 60).round} h"
+                              - elsif (time / 60 / 60 / 24).round > 0 && (time / 60 / 60 / 24).round
+                                = "#{(time / 60 / 60 / 24).round} d"
+                      button.modal-close.is-large aria-label="close" onclick="toggleShowLikes(#{tweet.id})"
+            .level-item.is-mobile.has-text-centered.has-padding-right-60px.has-flex-1
+              = link_to tweet, class:"level-item" do
+                span.icon
+                  i.fas.fa-link.has-text-dark &nbsp
+                  | &nbsp
+                  i.far.fa-comments.has-text-dark
+        .media-right
+          small
+            - time = Time.now - tweet.created_at
+            - if time.round == 1
+              = "#{time.round} sekunde"
+            - elsif time.round > 1 && time.round < 60
+              = "#{time.round} sekundes"
+            - elsif (time/60).round == 1
+              = "#{(time / 60).round} minūte"
+            - elsif (time/60).round > 1 && (time/60).round <= 60
+              = "#{(time / 60).round} minūtes"
+            - elsif (time / 60 / 60).round == 1
+              = "#{(time / 60 / 60).round} stunda"
+            - elsif (time / 60 / 60).round > 1 && (time / 60 / 60).round <= 24
+              = "#{(time / 60 / 60).round} stundas"
+            - elsif (time / 60 / 60 / 24).round == 1
+              = "#{(time / 60 / 60 / 24).round} diena"
+            - elsif (time / 60 / 60 / 24).round > 1
+              = "#{(time / 60 / 60 / 24).round} dienas"
+            br
+            | pirms
+  - page = params[:page].to_i
+  - if page == 0
+    - page = 1
+  .column
+    .column.is-offset-2.is-8
+      .tabs.is-toggle.is-toggle-rounded.is-fullwidth.is-equal-spread
+        ul
+          - if page > 1
+            li
+              - if @current_category
+                = link_to "?category=#{@current_category}&page=#{page - 1}"
+                  i.fas.fa-angle-double-left
+              - else
+                = link_to "?page=#{page - 1}"
+                  i.fas.fa-angle-double-left
+          - if @alltweets.count > page * 20
+            li
+              - if @current_category
+                = link_to "?category=#{@current_category}&page=#{page > 1 ? page + 1 : 2}" do
+                  i.fas.fa-angle-double-right
+              - else
+                = link_to "?page=#{page > 1 ? page + 1 : 2}" do
+                  i.fas.fa-angle-double-right

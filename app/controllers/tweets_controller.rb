@@ -16,6 +16,8 @@ class TweetsController < ApplicationController
     @followers = Following.where(following_user: current_user)
     @followings = Following.where(follower_user: current_user)
     @categories = Category.all
+    @users = User.all
+    @search_id = 1
   end
 
   # GET /tweets/1
