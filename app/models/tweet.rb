@@ -1,3 +1,19 @@
+# == Schema Information
+#
+# Table name: tweets
+#
+#  id                 :integer          not null, primary key
+#  tweet              :text
+#  created_at         :datetime         not null
+#  updated_at         :datetime         not null
+#  user_id            :integer
+#  image_file_name    :string
+#  image_content_type :string
+#  image_file_size    :integer
+#  image_updated_at   :datetime
+#  category_id        :integer
+#
+
 class Tweet < ApplicationRecord
   belongs_to :user, optional: true
   validates_length_of :tweet, maximum: 420, minimum: 1

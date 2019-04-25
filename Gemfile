@@ -67,6 +67,7 @@ group :development do
   gem 'better_errors', '~> 2.5'
   gem 'guard', '~> 2.15'
   gem 'guard-livereload', '~> 2.5', '>= 2.5.2', require: false
+  gem 'annotate'
 end
 
 group :test do
