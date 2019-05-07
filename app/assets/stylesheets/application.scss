@@ -279,7 +279,7 @@ section .box .media-content {
 
 .activeUsernames li a {
   border: 1px solid #ddd;
-  margin-top: -1px; /* Prevent double borders */
+  margin-top: -1px; /* Lai nav dubultās apmales */
   background-color: #f6f6f6;
   padding: 12px;
   text-decoration: none;
@@ -290,18 +290,4 @@ section .box .media-content {
 
 #AllUsernames li a:hover:not(.header) {
   background-color: #eee;
-}
-
-.dropzone {
-  width: 300px;
-  height: 300px;
-  border: 2px dashed #ccc;
-  color: #ccc;
-  line-height: 300px;
-  text-align: center;
-}
-
-.dropzone.dragover {
-  border-color: #000;
-  color: #000;
 }

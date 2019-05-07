@@ -15,7 +15,7 @@ class UsersController < ApplicationController
     if @user != current_user
       redirect_to root_path, alert: 'Nav piekļuve'
     end
-    @edit = "edit"
+    @edit = "edit" #if @edit ir definēts tad nomainās background
   end
 
   def followings
@@ -25,20 +25,20 @@ class UsersController < ApplicationController
   end
 
   def destroy
-    user = User.find(username: params[:username])
-    user.destroy
-    redirect_to root_path
+    @user.destroy
+    respond_to do |format|
+      format.html { redirect_back fallback_location: root_path, notice: 'Lietotājs tika izdzēsts.' }
+      format.json { head :no_content }
+    end
   end
 
   def update
     if @user == current_user
       if @user.update(user_params)
-        flash[:success] = 'Your profile has been updated.'
-        redirect_to profile_path(@user.username)
+        redirect_to root_path, notice: "Tavs profils tika veiksmīgi rediģēts."
+        # format.json { redirect_to profile_path(@user.username), status: :ok, location: @user }
       else
-        @user.errors.full_messages
-        flash[:error] = @user.errors.full_messages
-        render :edit
+        redirect_to root_path, alert: "Lietotāja apraksts neatbilst formātam (maksimālais simbolu skaits ir 110)"
       end
     else
       redirect_to profile_path(@user.username)

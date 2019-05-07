@@ -84,7 +84,7 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.12.2)
-    concurrent-ruby (1.1.4)
+    concurrent-ruby (1.1.5)
     crass (1.0.4)
     devise (4.6.1)
       bcrypt (~> 3.0)
@@ -119,7 +119,7 @@ GEM
       guard-compat (~> 1.0)
       multi_json (~> 1.8)
     http_parser.rb (0.6.0)
-    i18n (1.5.3)
+    i18n (1.6.0)
       concurrent-ruby (~> 1.0)
     io-like (0.3.0)
     jbuilder (2.8.0)
@@ -287,6 +287,7 @@ DEPENDENCIES
   gravatar_image_tag (~> 1.2)
   guard (~> 2.15)
   guard-livereload (~> 2.5, >= 2.5.2)
+  i18n (~> 1.6)
   jbuilder (~> 2.5)
   jquery-rails (~> 4.3, >= 4.3.1)
   kaminari

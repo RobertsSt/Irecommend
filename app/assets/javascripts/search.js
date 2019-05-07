@@ -1,14 +1,14 @@
 function filterUsernames() {
   var input, filter, ul, li, a, i, txtValue;
   input = document.getElementsByClassName('activeSearch')[0];
-  filter = input.value.toUpperCase();
+  filter = input.value.toUpperCase(); // Lai būtu case insesitive
   ul = document.getElementsByClassName('activeUsernames')[0];
   li = ul.getElementsByTagName("li");
   if (!ul.classList.contains("has-display-block")) {
-    ul.classList.toggle("has-display-block");
+    ul.classList.toggle("has-display-block"); //rāda matching usernames
   }
-  if (filter.length == 0) {
-    ul.classList.remove("has-display-block")
+  if (filter.length < 2) {
+    ul.classList.remove("has-display-block") //rāda usernames sākot no otrā simbola
   }
   for (i = 0; i < li.length; i++) {
     a = li[i].getElementsByTagName("a")[0];
@@ -47,8 +47,8 @@ jQuery(document).ready(function($) {
       $('#AllUsernames2').removeClass('activeUsernames');
     };
   };
-  $(window).resize(function(){
+  $(window).resize(function(){ //kad izmaina izmēru maina klases
     alterClass();
   });
-  alterClass();   //when the page first loads:
+  alterClass();   //Kad lapa ielādējas uzliek klasi
 });

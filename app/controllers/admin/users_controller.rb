@@ -42,7 +42,7 @@ module Admin
     def update
       respond_to do |format|
         if @user.update(user_params)
-          format.html { redirect_to root_path, notice: 'User was successfully updated.' }
+          format.html { redirect_back fallback_location: root_path, notice: 'Lietotājs tika veiksmīgi rediģēts.' }
           format.json { render :show, status: :ok, location: @user }
         else
           format.html { render :edit }
@@ -56,7 +56,7 @@ module Admin
     def destroy
       @user.destroy
       respond_to do |format|
-        format.html { redirect_to users_url, notice: 'User was successfully destroyed.' }
+        format.html { redirect_back fallback_location: root_path, notice: 'Lietotājs tika izdzēsts.' }
         format.json { head :no_content }
       end
     end
@@ -69,10 +69,9 @@ module Admin
 
       # Never trust parameters from the scary internet, only allow the white list through.
       def user_params
-        _user_params = params.require(:user).permit(:name, :username, :password, :password_confirmation)
+        _user_params = params.require(:user).permit(:name, :username, :password, :bio, :avatar, :email, :admin)
         if _user_params[:password].blank?
           _user_params.delete("password")
-          _user_params.delete("password_confirmation")
         end
         _user_params
       end

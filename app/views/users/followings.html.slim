@@ -12,10 +12,10 @@ section.section
               .media-content
                 .content
                   strong
-                    = link_to following.following_user.name, profile_path(following.following_user.username)
+                    = link_to following.following_user.name, profile_path(following.following_user.username), class: "has-text-dark"
                     br
                   small
-                    = link_to  "@" + following.following_user.username, profile_path(following.following_user.username)
+                    = link_to  "@" + following.following_user.username, profile_path(following.following_user.username), class: "has-text-dark"
                     br
               - if current_user.id != following.following_user.id
                 - if current_user.follows?(following.following_user)

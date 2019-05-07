@@ -1,21 +1,21 @@
 class FollowingsController < ApplicationController
-  def index
-    @users = Tweet.all
-    @followings = Following.where(follower_user: current_user)
-    @followers = Following.where(following_user: current_user)
-  end
-
   def create
-    following = Following.new
-    following.follower_user_id = current_user.id
-    following.following_user_id = params[:following_user_id]
-    following.save
-    redirect_back fallback_location: root_path
+    if Following.find_by(follower_user_id: current_user.id, following_user_id: params[:following_user_id])
+      redirect_back fallback_location: root_path
+    else
+      following = Following.new
+      following.follower_user_id = current_user.id
+      following.following_user_id = params[:following_user_id]
+      following.save
+      redirect_back fallback_location: root_path
+    end
   end
 
   def destroy
     following = Following.find_by(follower_user: current_user, following_user_id: (params[:id]))
-    following.destroy
+    if following
+      following.destroy
+    end
     redirect_back fallback_location: root_path
   end
 end

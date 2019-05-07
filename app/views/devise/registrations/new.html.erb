@@ -4,45 +4,41 @@
 
     <div class="column is-4">
       <div class="box">
-    <h2 class="title is-2">Sign Up</h2>
+    <h2 class="title is-2">Reģistrēties</h2>
 
     <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
     <%= f.error_notification %>
 
     <div class="field">
       <div class="control">
-      <%= f.input :name, required: true, autofocus: true, input_html: { class:"input" }, wrapper: false, label_html: { class:"label" } %>
+      <%= f.input :name, label: "Vārds", required: true, autofocus: true, input_html: { class:"input" }, wrapper: false, label_html: { class:"label" } %>
       </div>
     </div>
 
     <div class="field">
       <div class="control">
-      <%= f.input :username, required: true, input_html: { class:"input" }, wrapper: false, label_html: { class:"label" } %>
+      <%= f.input :username, label: "Lietotājvārds", required: true, input_html: { class:"input" }, wrapper: false, label_html: { class:"label" }%>
       </div>
+      <p> Lielākais simbolu skaits 20 </p>
     </div>
 
     <div class="field">
       <div class="control">
-      <%= f.input :email, required: true, input_html: { class:"input" }, wrapper: false, label_html: { class:"label" } %>
+      <%= f.input :email, label: "Ē-pasts", required: true, input_html: { class:"input" }, wrapper: false, label_html: { class:"label" } %>
       </div>
     </div>
 
 
     <div class="field">
       <div class="control">
-        <%= f.input :password, required: true, input_html: { class:"input" }, wrapper: false, label_html: { class:"label" }, hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length) %>
+        <%= f.input :password, label: "Parole", required: true, input_html: { class:"input" }, wrapper: false, label_html: { class:"label" } %>
       </div>
+      <p> Lielākais simbolu skaits 20 </p>
     </div>
 
     <div class="field">
       <div class="control">
-        <%= f.input :password_confirmation, required: true, input_html: { class: "input" }, wrapper: false, label_html: { class: "label" } %>
-      </div>
-    </div>
-
-    <div class="field">
-      <div class="control">
-         <%= f.button :submit, "Sign up", class:"button is-dark is-medium" %>
+         <%= f.button :submit, "Reģistrēties", class:"button is-dark is-medium" %>
        </div>
     </div>
 

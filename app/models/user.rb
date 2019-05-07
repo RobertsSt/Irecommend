@@ -29,8 +29,7 @@ class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable,
-         authentication_keys: [:login]
+         :recoverable, :rememberable, authentication_keys: [:login]
 
   has_many :tweets, dependent: :destroy
   has_many :followings_as_follower, class_name: "Following", foreign_key: "follower_user_id", dependent: :destroy
@@ -43,7 +42,13 @@ class User < ApplicationRecord
   validates_attachment_content_type :avatar, content_type: /\Aimage\/.*\Z/
 
   validates :username, presence: :true, uniqueness: { case_sensitive: false }
+  validates :email, presence: :true, uniqueness: { case_sensitive: false }
   validates_format_of :username, with: /^[a-zA-Z0-9_\.]*$/, :multiline => true #username cant be email (@)
+  validates_format_of :email,:with => Devise::email_regexp #email must have "@"
+  validates_length_of :username, maximum: 20
+  validates_length_of :email, maximum: 40
+  validates_length_of :name, maximum: 20
+  validates_length_of :password, maximum: 20
 
   attr_writer :login
 
@@ -76,11 +81,23 @@ class User < ApplicationRecord
       end
     end
   end
+
+
   def whom_to_follow(limit = 3)
-    User.order("random()").where("users.id != (?)", id).joins(
-      "LEFT OUTER JOIN followings ON followings.following_user_id = users.id AND followings.follower_user_id = #{id}"
-    ).where(
-      followings: {follower_user_id: nil}
-    ).limit(limit)
+    if followings_as_follower.count == 0 # Ja nav sekotāju tad rāda trīs nejauši izvēlētus lietotājus
+      User.order("random()").where("users.id != (?)", id).joins(
+        "LEFT OUTER JOIN followings ON followings.following_user_id = users.id AND followings.follower_user_id = #{id}"
+      ).where(
+        followings: {follower_user_id: nil}
+      ).limit(limit)
+    else
+      ids = []
+      followings_as_follower.each do |follower|
+        ids << follower.following_user.followings_as_follower.pluck(:following_user_id)
+      end
+      User.order("random()").where(
+        id: ids.flatten - [id] - followings_as_follower.pluck(:following_user_id)
+      ).limit(limit)
+    end
   end
 end

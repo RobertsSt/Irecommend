@@ -14,17 +14,11 @@ section.section
                 = f.input :username, label: 'Lietotājvards', required: true,  input_html: { class: "input"}, wrapper: false, label_html: { class: "label" }
 
             div.field
-               - if devise_mapping.confirmable? && resource.pending_reconfirmation?
-                p Currently waiting confirmation for: = resource.unconfirmed_email
-            div.field
               div.control
                 = f.input :password, label: 'Jaunā parole', autocomplete: "off", hint: "Atstāj tukšu ja nevēlies mainīt", required: false, input_html: { class: "input"}, wrapper: false, label_html: { class: "label" }
-            div.field
-              div.control
-                = f.input :password_confirmation, label: 'Paroli vēlreiz', required: false, input_html: { class: "input"}, wrapper: false, label_html: { class: "label" }
             div.field
               div.control
                 = f.input :current_password, label: 'Pašreizējā parole', hint: "Ir nepieciešams ievadīt pašreizējo paroli, lai varētu apstiprināt izmaiņas", required: true, input_html: { class: "input"}, wrapper: false, label_html: { class: "label" }
             = f.button :submit, "Atjaunināt", class:"button is-dark is-rounded"
           h4.is-5 Vai vēlies dzēst savu profilu?
-          = link_to "Dzēst profilu", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete
+          = link_to "Dzēst profilu", registration_path(resource_name), data: { confirm: "Vai tiešām vēlies dzēst savu profilu?" }, method: :delete

@@ -7,7 +7,7 @@ class CommentsController < ApplicationController
 
     if @comment.save
       respond_to do |format|
-        format.html { redirect_back fallback_location: root_path }
+        format.html { redirect_back fallback_location: root_path, notice: 'komentārs tika veiksmīgi izveidots.' }
         format.js
       end
     else
@@ -22,7 +22,7 @@ class CommentsController < ApplicationController
     if @comment.user_id == current_user.id || @tweet.user_id == current_user.id || current_user.admin
      @comment.delete
      respond_to do |format|
-       format.html { redirect_back fallback_location: root_path }
+       format.html { redirect_back fallback_location: root_path, notice: 'komentārs tika veiksmīgi izdzēsts.' }
        format.js
      end
      redirect_back fallback_location: root_path
