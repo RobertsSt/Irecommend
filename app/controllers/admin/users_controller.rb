@@ -15,8 +15,8 @@ module Admin
       @users = User.all
     end
 
-    def tweets
-      @tweets = Tweets.all
+    def posts
+      @posts = Posts.all
     end
 
 

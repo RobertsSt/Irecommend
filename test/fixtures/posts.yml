@@ -1,9 +1,9 @@
 # == Schema Information
 #
-# Table name: tweets
+# Table name: posts
 #
 #  id                 :integer          not null, primary key
-#  tweet              :text
+#  post              :text
 #  created_at         :datetime         not null
 #  updated_at         :datetime         not null
 #  user_id            :integer
@@ -17,7 +17,7 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  tweet: MyText
+  post: MyText
 
 two:
-  tweet: MyText
+  post: MyText

@@ -1,18 +1,18 @@
 Rails.application.routes.draw do
   namespace :admin do
     resources :users
-    resources :tweets
+    resources :posts
   end
   devise_for :users, :controllers => { registrations: 'registrations' }
-  resources :tweets do
+  resources :posts do
     resources :comments
   end
-  resources :tweets do
+  resources :posts do
     resources :likes
   end
   resources :followings
   resources :followers
-  resources :user_tweets
+  resources :user_posts
   resources :users, param: :username do
     member do
       get "followings"
@@ -27,5 +27,5 @@ Rails.application.routes.draw do
 
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
-  root "tweets#index"
+  root "posts#index"
 end

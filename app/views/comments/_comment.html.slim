@@ -6,6 +6,6 @@
         br
       = comment.content
     .is-pulled-right.has-margin-right-15px.has-aligned-in-center
-      - if comment.user == current_user || comment.tweet.user_id == current_user.id || current_user.admin
-        = link_to tweet_comment_path(comment.tweet, comment), method: :delete, data: { confirm: "Vai tiešām vēlies izdzēst šo komentāru?"}, remote: true do
+      - if comment.user == current_user || comment.post.user_id == current_user.id || current_user.admin
+        = link_to post_comment_path(comment.post, comment), method: :delete, data: { confirm: "Vai tiešām vēlies izdzēst šo komentāru?"}, remote: true do
           span.fas.fa-trash.delete-comment

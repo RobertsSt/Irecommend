@@ -19,7 +19,7 @@ nav.panel
           p.heading
             = link_to "Ieteikumi", profile_path(current_user.username), class: "has-text-dark"
           p.title.is-6
-            =link_to current_user.tweets.count,  profile_path(current_user.username), class: "has-text-dark"
+            =link_to current_user.posts.count,  profile_path(current_user.username), class: "has-text-dark"
         div
           p.heading title="Cilvēki kam tu seko"
             = link_to "Sekojamie", followings_user_path(current_user.username), class: "has-text-dark"

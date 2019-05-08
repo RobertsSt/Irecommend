@@ -1,11 +1,11 @@
-= simple_form_for(@tweet) do |f|
+= simple_form_for(@post) do |f|
   = f.error_notification
   .field
     .control
       .is-pulled-right
         strong.is-size-7
           | Kategorija:
-        select name="tweet[category_id]"
+        select name="post[category_id]"
           option value=1 selected=(true if @current_category == "1")
             | Cita
           option value=2 selected=(true if @current_category == "2")
@@ -26,7 +26,7 @@
             | Mūzika
           option value="10" selected=(true if @current_category == "10")
             | Literatūra
-      = f.input :tweet, label: "Ko tu iesaki?", input_html: { class: "textarea "}, wrapper: false, label_html: {class: "label"}, placeholder: "Izveido jaunu ieteikumu...", autofocus: true
+      = f.input :post, label: "Ko tu iesaki?", input_html: { class: "textarea "}, wrapper: false, label_html: {class: "label"}, placeholder: "Izveido jaunu ieteikumu...", autofocus: true
       = f.input :image, label: "Bilde:"
       = f.submit "Es iesaku", class: "button is-dark is-outlined is-rounded"
   .is-pulled-right.textcount

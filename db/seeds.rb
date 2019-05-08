@@ -12,21 +12,23 @@ if u = User.where(email: 'admin@email.com').first
 else
   u = User.create!(
     email: 'admin@email.com',
-    password: 'mammamamma',
-    username: 'administrator',
-    name: 'Roberts Šteins'
+    password: 'password',
+    username: 'admin',
+    name: 'administrators',
+    admin: true
   )
   puts "  - User #{u.email} created"
 
-  if u2 = User.where(email: 'robertssteins@gmail.com').first
-    puts "  - User #{u2.email} already exists"
-  else
-    u2 = User.create!(
-      email: 'robertssteins@gmail.com',
-      password: 'mammamamma',
-      username: 'asinsbralis',
-      name: 'Roberts'
-    )
-    puts "  - User #{u2.email} created"
-
 end
+puts '- Creating categories'
+c = Category.create!(name: 'Cita')
+c = Category.create!(name: 'Vietas')
+c = Category.create!(name: 'Filmas')
+c = Category.create!(name: 'Izklaide')
+c = Category.create!(name: 'Ētika')
+c = Category.create!(name: 'Ēdiens')
+c = Category.create!(name: 'Sports')
+c = Category.create!(name: 'Zinātne')
+c = Category.create!(name: 'Mūzika')
+c = Category.create!(name: 'Literatūra')
+puts '- Categories created'

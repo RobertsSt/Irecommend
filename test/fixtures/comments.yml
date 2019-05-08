@@ -4,7 +4,7 @@
 #
 #  id         :integer          not null, primary key
 #  user_id    :integer
-#  tweet_id   :integer
+#  post_id   :integer
 #  content    :text
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
@@ -14,10 +14,10 @@
 
 one:
   user: one
-  tweet: one
+  post: one
   content: MyText
 
 two:
   user: two
-  tweet: two
+  post: two
   content: MyText

@@ -10,7 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_03_090312) do
+ActiveRecord::Schema.define(version: 2019_05_08_075845) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
 
   create_table "categories", force: :cascade do |t|
     t.string "name"
@@ -19,12 +22,12 @@ ActiveRecord::Schema.define(version: 2019_04_03_090312) do
   end
 
   create_table "comments", force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "tweet_id"
+    t.bigint "user_id"
+    t.bigint "post_id"
     t.text "content"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["tweet_id"], name: "index_comments_on_tweet_id"
+    t.index ["post_id"], name: "index_comments_on_post_id"
     t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
@@ -36,17 +39,17 @@ ActiveRecord::Schema.define(version: 2019_04_03_090312) do
   end
 
   create_table "likes", force: :cascade do |t|
-    t.integer "tweet_id"
-    t.integer "user_id"
+    t.bigint "post_id"
+    t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["tweet_id", "user_id"], name: "index_likes_on_tweet_id_and_user_id", unique: true
-    t.index ["tweet_id"], name: "index_likes_on_tweet_id"
+    t.index ["post_id", "user_id"], name: "index_likes_on_post_id_and_user_id", unique: true
+    t.index ["post_id"], name: "index_likes_on_post_id"
     t.index ["user_id"], name: "index_likes_on_user_id"
   end
 
-  create_table "tweets", force: :cascade do |t|
-    t.text "tweet"
+  create_table "posts", force: :cascade do |t|
+    t.text "post"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "user_id"
@@ -77,10 +80,15 @@ ActiveRecord::Schema.define(version: 2019_04_03_090312) do
     t.integer "avatar_file_size"
     t.datetime "avatar_updated_at"
     t.text "bio"
-    t.boolean "admin"
+    t.boolean "admin", default: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["username"], name: "index_users_on_username", unique: true
   end
 
+  add_foreign_key "comments", "posts"
+  add_foreign_key "comments", "users"
+  add_foreign_key "likes", "posts"
+  add_foreign_key "likes", "users"
+  add_foreign_key "posts", "categories"
 end

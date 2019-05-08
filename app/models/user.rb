@@ -31,7 +31,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, authentication_keys: [:login]
 
-  has_many :tweets, dependent: :destroy
+  has_many :posts, dependent: :destroy
   has_many :followings_as_follower, class_name: "Following", foreign_key: "follower_user_id", dependent: :destroy
   has_many :followings_as_following, class_name: "Following", foreign_key: "following_user_id", dependent: :destroy
   has_many :comments, dependent: :destroy

@@ -1,9 +1,9 @@
 # == Schema Information
 #
-# Table name: tweets
+# Table name: posts
 #
 #  id                 :integer          not null, primary key
-#  tweet              :text
+#  post              :text
 #  created_at         :datetime         not null
 #  updated_at         :datetime         not null
 #  user_id            :integer
@@ -14,12 +14,10 @@
 #  category_id        :integer
 #
 
-class Tweet < ApplicationRecord
-  belongs_to :user, optional: true
-  validates_length_of :tweet, maximum: 420, minimum: 1
-  has_attached_file :image
-  validates_attachment_content_type :image, :content_type => /\Aimage\/.*\Z/
-  has_many :comments, dependent: :destroy
-  belongs_to :category
-  has_many :likes, dependent: :destroy
+require 'test_helper'
+
+class PostTest < ActiveSupport::TestCase
+  # test "the truth" do
+  #   assert true
+  # end
 end

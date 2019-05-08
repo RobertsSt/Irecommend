@@ -4,59 +4,59 @@
       p.image.is-64x64
         = profile_avatar_select(current_user)
     .media-content
-      = render 'tweets/form'
+      = render 'posts/form'
   - if @current_category
     strong.small
       = "Kategorija: " if @current_category == "1"
       = Category.find_by(id: @current_category.to_i).name
       br
       | &nbsp
-  - @tweets.each do | tweet |
-    .box id="tweet_id_#{tweet.id}"
+  - @posts.each do | post |
+    .box id="post_id_#{post.id}"
       article.media
         .media-left
           figure.image.is-64x64
-            = profile_avatar_select(tweet.user)
+            = profile_avatar_select(post.user)
         .media-content
           .content
             strong
-              = link_to tweet.user.name, profile_path(tweet.user.username), class: "has-text-dark"
+              = link_to post.user.name, profile_path(post.user.username), class: "has-text-dark"
               br
             small
-              = link_to "@#{tweet.user.username}", profile_path(tweet.user.username), class: "has-text-dark"
+              = link_to "@#{post.user.username}", profile_path(post.user.username), class: "has-text-dark"
               br
             p
-              = tweet.tweet
+              = post.post
               br
-              - if tweet.image.present?
-                = image_tag(tweet.image.url, class: "img")
-          - if tweet.comments.present?
+              - if post.image.present?
+                = image_tag(post.image.url, class: "img")
+          - if post.comments.present?
             .columns
               .column
                 hr class="dropdown-divider"
-                - if tweet.comments.count > 4
-                  = render tweet.comments.limit(4)
+                - if post.comments.count > 4
+                  = render post.comments.limit(4)
                   .has-text-centered title="Ielādēt vēl komentārus"
-                    = link_to tweet do
+                    = link_to post do
                       i.fas.fa-ellipsis-h
                 - else
-                  = render tweet.comments
+                  = render post.comments
           nav.level.has-display-flex
             .level-left.has-width-60px.has-display-flex
-              - likes = Like.where(tweet_id: tweet.id)
-              - unlike = Like.find_by(user_id: current_user.id, tweet_id: tweet.id)
+              - likes = Like.where(post_id: post.id)
+              - unlike = Like.find_by(user_id: current_user.id, post_id: post.id)
               - if unlike
-                = link_to tweet_like_path(tweet, unlike.id), method: :delete
+                = link_to post_like_path(post, unlike.id), method: :delete
                   i.fas.fa-thumbs-up.has-text-dark
               - else
-                = link_to tweet_likes_path(tweet), method: :post
+                = link_to post_likes_path(post), method: :post
                   i.far.fa-thumbs-up.has-text-dark
               - if likes.count != 0
                 | &nbsp
-                .has-text-dark.pointer onclick="toggleShowLikes(#{tweet.id})"
+                .has-text-dark.pointer onclick="toggleShowLikes(#{post.id})"
                   = likes.count
-                div.modal id="likes-section-#{tweet.id}"
-                  div.modal-background onclick="toggleShowLikes(#{tweet.id})"
+                div.modal id="likes-section-#{post.id}"
+                  div.modal-background onclick="toggleShowLikes(#{post.id})"
                   div.modal-content
                     .likes
                       strong.has-margin-10px Patīk:
@@ -82,16 +82,16 @@
                                 = "#{(time / 60 / 60).round} h"
                               - elsif (time / 60 / 60 / 24).round > 0 && (time / 60 / 60 / 24).round
                                 = "#{(time / 60 / 60 / 24).round} d"
-                      button.modal-close.is-large aria-label="close" onclick="toggleShowLikes(#{tweet.id})"
+                      button.modal-close.is-large aria-label="close" onclick="toggleShowLikes(#{post.id})"
             .level-item.is-mobile.has-text-centered.has-padding-right-60px.has-flex-1
-              = link_to tweet, class:"level-item" do
+              = link_to post, class:"level-item" do
                 span.icon
                   i.fas.fa-link.has-text-dark &nbsp
                   | &nbsp
                   i.far.fa-comments.has-text-dark
         .media-right
           small
-            - time = Time.now - tweet.created_at
+            - time = Time.now - post.created_at
             - if time.round == 1
               = "#{time.round} sekunde"
             - elsif time.round > 1 && time.round < 60
@@ -125,7 +125,7 @@
               - else
                 = link_to "?page=#{page - 1}"
                   i.fas.fa-angle-double-left
-          - if @alltweets.count > page * 20
+          - if @allposts.count > page * 20
             li
               - if @current_category
                 = link_to "?category=#{@current_category}&page=#{page > 1 ? page + 1 : 2}" do

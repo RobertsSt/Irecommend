@@ -3,10 +3,10 @@
     .columns.is-centered
       .column.is-half
         h1.title Rediģēt ieteikumu
-        = render 'form', tweet: @tweet
+        = render 'form', post: @post
 nav.navbar.is-fixed-bottom
   .navbar-menu
     .navbar-item
       .field.is-grouped
         p.control
-          = link_to 'Cancel', tweets_path, class: "button is-dark is-rounded"
+          = link_to 'Cancel', posts_path, class: "button is-dark is-rounded"

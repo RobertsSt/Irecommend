@@ -2,9 +2,9 @@ class UsersController < ApplicationController
   before_action :load_user, :load_followers, :load_followings, :load_following
 
   def show
-    @alltweets = Tweet.where(user_id: @user ).order("created_at DESC")
-    @tweets = @alltweets.page(params[:page]).per(20)
-    @tweet = Tweet.new
+    @allposts = Post.where(user_id: @user ).order("created_at DESC")
+    @posts = @allposts.page(params[:page]).per(20)
+    @post = Post.new
     @page = params[:page].to_i
     if @page == 0
       @page = 1

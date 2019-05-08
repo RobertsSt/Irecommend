@@ -8,45 +8,45 @@ section.section
           article.media
             .media-left
               figure.image.is-64x64
-                = profile_avatar_select(@tweet.user)
+                = profile_avatar_select(@post.user)
             .media-content
               .content
                 strong
-                  = link_to @tweet.user.name, profile_path(@tweet.user.username), class:"has-text-dark"
+                  = link_to @post.user.name, profile_path(@post.user.username), class:"has-text-dark"
                   br
                 small
-                  = link_to "@" + @tweet.user.username, profile_path(@tweet.user.username), class:"has-text-dark"
+                  = link_to "@" + @post.user.username, profile_path(@post.user.username), class:"has-text-dark"
                   br
                 p
-                  = @tweet.tweet
+                  = @post.post
                   br
-                  - if @tweet.image.present?
-                    = image_tag(@tweet.image.url, class: "img")
+                  - if @post.image.present?
+                    = image_tag(@post.image.url, class: "img")
               hr class="dropdown-divider"
               .columns
                 .column
-                  - if @tweet.comments.present?
-                    = render @tweet.comments
-                  = simple_form_for([@tweet, @tweet.comments.build]) do |f|
+                  - if @post.comments.present?
+                    = render @post.comments
+                  = simple_form_for([@post, @post.comments.build]) do |f|
                     .has-display-flex
                       = f.text_area :content, placeholder: 'Pievienot komentāru...',rows: 3, cols: 45, autofocus: true, class: "gray-border-1px has-flex-1"
                     = f.button :submit, title="Izveidot", class: "has-margin-left-10px is-small button is-dark is-outlined is-rounded"
               nav.level
                 .level-left.has-width-60px
-                  - likes = Like.where(tweet_id: @tweet.id)
-                  - unlike = Like.find_by(user_id: current_user.id, tweet_id: @tweet.id)
+                  - likes = Like.where(post_id: @post.id)
+                  - unlike = Like.find_by(user_id: current_user.id, post_id: @post.id)
                   - if unlike
-                    = link_to tweet_like_path(@tweet, unlike.id), method: :delete
+                    = link_to post_like_path(@post, unlike.id), method: :delete
                       i.fas.fa-thumbs-up.has-text-dark
                   - else
-                    = link_to tweet_likes_path(@tweet), method: :post
+                    = link_to post_likes_path(@post), method: :post
                       i.far.fa-thumbs-up.has-text-dark
-                  - if Like.where(tweet_id: @tweet.id).count != 0
+                  - if Like.where(post_id: @post.id).count != 0
                     | &nbsp
-                    .has-text-dark.pointer onclick="toggleShowLikes(#{@tweet.id})"
+                    .has-text-dark.pointer onclick="toggleShowLikes(#{@post.id})"
                       = likes.count
-                    div.modal id="likes-section-#{@tweet.id}"
-                      div.modal-background onclick="toggleShowLikes(#{@tweet.id})"
+                    div.modal id="likes-section-#{@post.id}"
+                      div.modal-background onclick="toggleShowLikes(#{@post.id})"
                       div.modal-content
                         .likes
                           strong.has-margin-10px Patīk:
@@ -72,18 +72,18 @@ section.section
                                     = "#{(time / 60 / 60).round} h"
                                   - elsif (time / 60 / 60 / 24).round > 0 && (time / 60 / 60 / 24).round
                                     = "#{(time / 60 / 60 / 24).round} d"
-                          button.modal-close.is-large aria-label="close" onclick="toggleShowLikes(#{@tweet.id})"
+                          button.modal-close.is-large aria-label="close" onclick="toggleShowLikes(#{@post.id})"
                 .level-item.is-flex-mobile.has-text-centered.has-padding-right-60px
-                    - if @tweet.user.id == current_user.id || current_user.admin
-                      = link_to edit_tweet_path(@tweet), class: "level-item" do
+                    - if @post.user.id == current_user.id || current_user.admin
+                      = link_to edit_post_path(@post), class: "level-item" do
                         span.icon.has-text-dark
                           i.fa.fa-edit aria-hidden="true"
-                      = link_to tweet_path(@tweet.id), method: :delete, class: "level-item", data: { confirm: "Vai tiešām vēlies izdzēst šo ieteikumu?"} do
+                      = link_to post_path(@post.id), method: :delete, class: "level-item", data: { confirm: "Vai tiešām vēlies izdzēst šo ieteikumu?"} do
                         span.icon.has-text-dark
                           i.fa.fa-trash aria-hidden="true"
             .media-right
               small
-                - time = Time.now - @tweet.created_at
+                - time = Time.now - @post.created_at
                 - if time.round == 1
                   = "#{time.round} sekunde"
                 - elsif time.round > 1 && time.round < 60

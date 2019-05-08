@@ -1,22 +1,21 @@
 class LikesController < ApplicationController
-  before_action :set_tweet
+  before_action :set_post
 
   def index
-    @likes = Like.where(tweet_id: @tweet.id)
+    @likes = Like.where(post_id: @post.id)
   end
 
   def create
     @like = Like.new
-    if Like.find_by(tweet_id: @tweet.id, user_id: current_user.id)
-      flash[:alert] = "Jau esi uzspiedis like"
+    if Like.find_by(post_id: @post.id, user_id: current_user.id)
       redirect_to root_path
     else
-      @like.tweet_id = @tweet.id
+      @like.post_id = @post.id
       @like.user_id = current_user.id
 
       if @like.save
         respond_to do |format|
-          format.html { redirect_to root_path(anchor: "tweet_id_#{@tweet.id}") }
+          format.html { redirect_back fallback_location: root_path }
           format.js
         end
       else
@@ -27,7 +26,7 @@ class LikesController < ApplicationController
   end
 
   def destroy
-    @like = @tweet.likes.find_by(params[:id])
+    @like = @post.likes.find(params[:id])
     if @like
       if @like.user_id == current_user.id
        @like.delete
@@ -35,6 +34,8 @@ class LikesController < ApplicationController
          format.html { redirect_back fallback_location: root_path }
          format.js
        end
+     else
+       redirect_back fallback_location: root_path
      end
    end
   end
@@ -42,7 +43,7 @@ class LikesController < ApplicationController
   private
 
 
-  def set_tweet
-    @tweet = Tweet.find(params[:tweet_id])
+  def set_post
+    @post = Post.find(params[:post_id])
   end
 end
