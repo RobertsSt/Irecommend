@@ -7,4 +7,4 @@ set up postgres by creating database and user
 gem install bundler
 bundle install
 
-rails s
+rails server
