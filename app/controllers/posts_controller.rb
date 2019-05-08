@@ -44,10 +44,10 @@ class PostsController < ApplicationController
 
     respond_to do |format|
       if @post.save
-        format.html { redirect_to root_path, notice: 'Ieteikums tika veiksmīgi izveidots.' }
+        format.html { redirect_back fallback_location: root_path, notice: 'Ieteikums tika veiksmīgi izveidots.' }
         format.json { render :show, status: :created, location: @post }
       else
-        format.html { redirect_to root_path, alert: 'Ieteikums neatbilst formātam (minimālais simbolu skaits - 1, maksimālais simbolu skaits - 420)' }
+        format.html { redirect_back fallback_location: root_path, alert: 'Ieteikums neatbilst formātam (minimālais simbolu skaits - 1, maksimālais simbolu skaits - 420)' }
         format.json { render json: @post.errors, status: :unprocessable_entity }
       end
     end
@@ -61,7 +61,7 @@ class PostsController < ApplicationController
         format.html { redirect_to @post, notice: 'Ieteikums tika veiksmīgi rediģēts.' }
         format.json { render :show, status: :ok, location: @post }
       else
-        format.html { render :edit, alert: 'Ieteikums neatbilst formātam (minimālais simbolu skaits - 1, maksimālais simbolu skaits - 420)' }
+        format.html { redirect_to @post, alert: 'Ieteikums neatbilst formātam (minimālais simbolu skaits - 1, maksimālais simbolu skaits - 420)' }
         format.json { render json: @post.errors, status: :unprocessable_entity }
       end
     end
