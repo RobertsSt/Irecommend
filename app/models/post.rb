@@ -17,7 +17,7 @@
 class Post < ApplicationRecord
   belongs_to :user, optional: true
   validates_length_of :post, maximum: 420, minimum: 1
-  has_attached_file :image
+  has_attached_file :image, styles: { regular: "800x800>" }
   validates_attachment_content_type :image, :content_type => /\Aimage\/.*\Z/
   has_many :comments, dependent: :destroy
   belongs_to :category
