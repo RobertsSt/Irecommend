@@ -2,7 +2,7 @@
 #
 # Table name: followings
 #
-#  id                :integer          not null, primary key
+#  id                :bigint(8)        not null, primary key
 #  follower_user_id  :integer
 #  following_user_id :integer
 #  created_at        :datetime         not null

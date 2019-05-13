@@ -6,32 +6,44 @@ section.section
         - @posts.each do | post |
           .box
             article.media
-              .media-left
-                figure.image.is-64x64
-                  = profile_avatar_select(post.user)
               .media-content
                 .content
-                  strong
-                    = link_to post.user.name, profile_path(@user.username), class: "has-text-dark"
-                    br
-                  small
-                    = link_to "@" + post.user.username, profile_path(@user.username), class: "has-text-dark"
-                    br
-                  p
+                  .has-display-flex
+                    figure.image.is-64x64.profile-picture
+                      = profile_avatar_select(post.user)
+                    .has-flex-1
+                      .has-display-flex
+                        strong.has-flex-1.has-margin-top-05
+                          = link_to post.user.name, profile_path(@user.username), class: "has-text-dark"
+                        small
+                          - time = Time.now - post.created_at
+                          - if time.round >= 1 && time.round <= 60
+                            = "#{time.round} sek"
+                          - elsif (time/60).round >= 1 && (time/60).round <= 60
+                            = "#{(time / 60).round} min"
+                          - elsif (time / 60 / 60).round >= 1 && (time / 60 / 60).round <= 24
+                            = "#{(time / 60 / 60).round} h"
+                          - elsif (time / 60 / 60 / 24).round >= 1
+                            = "#{(time / 60 / 60 / 24).round} d"
+                        br
+                      small
+                        = link_to "@" + post.user.username, profile_path(@user.username), class: "has-text-dark"
+                        br
+                  p.has-margin-left-10px
                     = post.post
                     br
-                    - if post.image.present?
-                      = image_tag(post.image.url, class: "img")
+                  - if post.image.present?
+                    = image_tag(post.image.url, class: "img")
+                  - if post.comments.present?
+                    hr class="dropdown-divider"
+                    - if post.comments.count > 4
+                      = render post.comments.limit(4)
+                      .has-text-centered title="Load more comments"
+                        = link_to post do
+                          i.fas.fa-ellipsis-h
+                    - else
+                      = render post.comments
 
-                    - if post.comments.present?
-                      hr class="dropdown-divider"
-                      - if post.comments.count > 4
-                        = render post.comments.limit(4)
-                        .has-text-centered title="Load more comments"
-                          = link_to post do
-                            i.fas.fa-ellipsis-h
-                      - else
-                        = render post.comments
                 nav.level.has-display-flex
                   .level-left.has-width-60px.has-display-flex
                     - likes = Like.where(post_id: post.id)
@@ -87,27 +99,6 @@ section.section
                         = link_to post_path(post.id), method: :delete, class: "level-item", data: { confirm: "Vai tiešām vēlies izdzēst šo ieteikumu?"} do
                           span.icon.has-text-dark
                             i.fa.fa-trash aria-hidden="true"
-              .media-right
-                small
-                  - time = Time.now - post.created_at
-                  - if time.round == 1
-                    = "#{time.round} sekunde"
-                  - elsif time.round > 1 && time.round < 60
-                    = "#{time.round} sekundes"
-                  - elsif (time/60).round == 1
-                    = "#{(time / 60).round} minūte"
-                  - elsif (time/60).round > 1 && (time/60).round <= 60
-                    = "#{(time / 60).round} minūtes"
-                  - elsif (time / 60 / 60).round == 1
-                    = "#{(time / 60 / 60).round} stunda"
-                  - elsif (time / 60 / 60).round > 1 && (time / 60 / 60).round <= 24
-                    = "#{(time / 60 / 60).round} stundas"
-                  - elsif (time / 60 / 60 / 24).round == 1
-                    = "#{(time / 60 / 60 / 24).round} diena"
-                  - elsif (time / 60 / 60 / 24).round > 1
-                    = "#{(time / 60 / 60 / 24).round} dienas"
-                  br
-                  | pirms
   - page = params[:page].to_i
   - if page == 0
     - page = 1

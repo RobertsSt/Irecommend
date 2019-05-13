@@ -2,8 +2,8 @@
 #
 # Table name: posts
 #
-#  id                 :integer          not null, primary key
-#  post              :text
+#  id                 :bigint(8)        not null, primary key
+#  post               :text
 #  created_at         :datetime         not null
 #  updated_at         :datetime         not null
 #  user_id            :integer

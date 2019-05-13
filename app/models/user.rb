@@ -2,7 +2,7 @@
 #
 # Table name: users
 #
-#  id                     :integer          not null, primary key
+#  id                     :bigint(8)        not null, primary key
 #  email                  :string           default(""), not null
 #  encrypted_password     :string           default(""), not null
 #  reset_password_token   :string
@@ -22,7 +22,7 @@
 #  avatar_file_size       :integer
 #  avatar_updated_at      :datetime
 #  bio                    :text
-#  admin                  :boolean
+#  admin                  :boolean          default(FALSE)
 #
 
 class User < ApplicationRecord
@@ -45,10 +45,10 @@ class User < ApplicationRecord
   validates :email, presence: :true, uniqueness: { case_sensitive: false }
   validates_format_of :username, with: /^[a-zA-Z0-9_\.]*$/, :multiline => true #username cant be email (@)
   validates_format_of :email,:with => Devise::email_regexp #email must have "@"
-  validates_length_of :username, maximum: 20
-  validates_length_of :email, maximum: 40
-  validates_length_of :name, maximum: 20
-  validates_length_of :password, maximum: 20
+  validates_length_of :username, maximum: 20, minimum: 2
+  validates_length_of :email, maximum: 40, minimum: 5
+  validates_length_of :name, maximum: 20, minimum: 2
+  validates_length_of :password, maximum: 20, minimum: 2
 
   attr_writer :login
 

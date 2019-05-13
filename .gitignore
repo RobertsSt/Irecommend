@@ -30,5 +30,5 @@
 # Ignore master key for decrypting credentials and more.
 /config/master.key
 
-#ignore folder named public
-public/
+#ignore folder named public/system
+public/system/

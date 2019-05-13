@@ -2,7 +2,7 @@
 #
 # Table name: categories
 #
-#  id         :integer          not null, primary key
+#  id         :bigint(8)        not null, primary key
 #  name       :string
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
@@ -11,4 +11,5 @@
 class Category < ApplicationRecord
 
   has_many :posts
+  validates_length_of :name, maximum: 20, minimum: 1
 end
