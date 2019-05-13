@@ -28,14 +28,6 @@ class PostsController < ApplicationController
     @followings = Following.where(follower_user: current_user)
   end
 
-  # GET /posts/new
-  def new
-    @post = current_user.posts.build
-  end
-
-  # GET /posts/1/edit
-  def edit
-  end
 
   # POST /posts
   # POST /posts.json
