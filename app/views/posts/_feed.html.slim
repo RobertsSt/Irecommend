@@ -1,8 +1,5 @@
 - if user_signed_in?
   article.media.box
-    figure.media-left
-      p.image.is-64x64
-        = profile_avatar_select(current_user)
     .media-content
       = render 'posts/form'
   - if @current_category
