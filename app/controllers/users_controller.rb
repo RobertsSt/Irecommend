@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  before_action :authenticate_user!
   before_action :load_user, :load_followers, :load_followings, :load_following
 
   def show
