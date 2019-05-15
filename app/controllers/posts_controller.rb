@@ -5,7 +5,7 @@ class PostsController < ApplicationController
   # GET /posts.json
   def index
     if !current_user
-      redirect_to "http://localhost:3000/users/sign_in"
+      redirect_to "/users/sign_in"
     else
       @current_category = params[:category]
       if @category = Category.find_by(id: @current_category)
