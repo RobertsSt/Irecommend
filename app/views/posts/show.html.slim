@@ -41,8 +41,8 @@ section.section
                     .has-display-flex
                       = f.text_area :content, placeholder: 'Pievienot komentāru...',rows: 3, cols: 45, autofocus: true, class: "gray-border-1px has-flex-1"
                     = f.button :submit, title="Izveidot", class: "has-margin-left-10px is-small button is-dark is-outlined is-rounded"
-              nav.level
-                .level-left.has-width-60px
+              nav.level.has-display-flex
+                .level-left.has-width-60px.has-display-flex
                   - likes = Like.where(post_id: @post.id)
                   - unlike = Like.find_by(user_id: current_user.id, post_id: @post.id)
                   - if unlike
@@ -83,7 +83,7 @@ section.section
                                   - elsif (time / 60 / 60 / 24).round > 0 && (time / 60 / 60 / 24).round
                                     = "#{(time / 60 / 60 / 24).round} d"
                           button.modal-close.is-large aria-label="close" onclick="toggleShowLikes(#{@post.id})"
-                .level-item.is-flex-mobile.has-text-centered.has-padding-right-60px
+                .level-item.is-flex-mobile.has-text-centered.has-padding-right-60px.has-flex-1
                     - if @post.user.id == current_user.id || current_user.admin
                       = link_to edit_post_path(@post), class: "level-item" do
                         span.icon.has-text-dark
