@@ -6,26 +6,36 @@ section.section
       .column.is-three-fifths.is-offset-one-fifths.has-flex-1
         .box
           article.media
-            .media-left
-              figure.image.is-64x64
-                = profile_avatar_select(@post.user)
             .media-content
               .content
-                strong
-                  = link_to @post.user.name, profile_path(@post.user.username), class:"has-text-dark"
-                  br
-                small
-                  = link_to "@" + @post.user.username, profile_path(@post.user.username), class:"has-text-dark"
-                  br
-                p
+                .has-display-flex
+                  figure.image.is-64x64
+                    = profile_avatar_select(@post.user)
+                  .has-flex-1
+                    .has-display-flex
+                      strong.has-flex-1.has-margin-top-05
+                        = link_to @post.user.name, profile_path(@post.user.username), class:"has-text-dark"
+                      small
+                        - time = Time.now - @post.created_at
+                        - if time.round >= 1 && time.round <= 60
+                          = "#{time.round} sek"
+                        - elsif (time/60).round >= 1 && (time/60).round <= 60
+                          = "#{(time / 60).round} min"
+                        - elsif (time / 60 / 60).round >= 1 && (time / 60 / 60).round <= 24
+                          = "#{(time / 60 / 60).round} h"
+                        - elsif (time / 60 / 60 / 24).round >= 1
+                          = "#{(time / 60 / 60 / 24).round} d"
+                      br
+                    small
+                      = link_to "@" + @post.user.username, profile_path(@post.user.username), class:"has-text-dark"
+                      br
+                p.has-margin-left-10px
                   = @post.post
                   br
-                  - if @post.image.present?
-                    = image_tag(@post.image.url, class: "img")
-              hr class="dropdown-divider"
-              .columns
-                .column
-                  - if @post.comments.present?
+                - if @post.image.present?
+                  = image_tag(@post.image.url, class: "img")
+                - if @post.comments.present?
+                  hr class="dropdown-divider"
                     = render @post.comments
                   = simple_form_for([@post, @post.comments.build]) do |f|
                     .has-display-flex
@@ -81,24 +91,3 @@ section.section
                       = link_to post_path(@post.id), method: :delete, class: "level-item", data: { confirm: "Vai tiešām vēlies izdzēst šo ieteikumu?"} do
                         span.icon.has-text-dark
                           i.fa.fa-trash aria-hidden="true"
-            .media-right
-              small
-                - time = Time.now - @post.created_at
-                - if time.round == 1
-                  = "#{time.round} sekunde"
-                - elsif time.round > 1 && time.round < 60
-                  = "#{time.round} sekundes"
-                - elsif (time/60).round == 1
-                  = "#{(time / 60).round} minūte"
-                - elsif (time/60).round > 1 && (time/60).round <= 60
-                  = "#{(time / 60).round} minūtes"
-                - elsif (time / 60 / 60).round == 1
-                  = "#{(time / 60 / 60).round} stunda"
-                - elsif (time / 60 / 60).round > 1 && (time / 60 / 60).round <= 24
-                  = "#{(time / 60 / 60).round} stundas"
-                - elsif (time / 60 / 60 / 24).round == 1
-                  = "#{(time / 60 / 60 / 24).round} diena"
-                - elsif (time / 60 / 60 / 24).round > 1
-                  = "#{(time / 60 / 60 / 24).round} dienas"
-                br
-                | pirms
