@@ -8,7 +8,7 @@ nav.panel
       .content
         p
           strong
-            = link_to current_user.name, profile_path(current_user.username), class: "has-text-dark"
+            = link_to current_user.name, profile_path(current_user.username), class: "has-text-dark", id: "link-to-profile"
             br
           small
             = link_to "@" + current_user.username, profile_path(current_user.username), class: "has-text-dark"

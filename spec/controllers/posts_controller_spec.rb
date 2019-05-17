@@ -8,12 +8,29 @@ RSpec.describe PostsController, type: :controller do
     @category.save
   end
 
-  it '#show' do
+  it 'visit #show' do
+    visit new_user_session_path()
+    fill_in "Ēpasts / Lietotājvārds", with: @current_user.username
+    fill_in "Parole", with: @current_user.password
+    click_button "Ielogoties"
+    expect(page).to_not have_content("Ielogoties")
+    expect(page).to have_content("Esi veiksmīgi ielogojies")
+    post = Post.new(id: 1, post: "Posting", user_id: @current_user.id, category_id: @category.id)
+    post.save
+    visit posts_path(post.id)
+    expect(page).to_not have_content("Esi veiksmīgi ielogojies")
 
   end
 
-  it '#index' do
-
+  it 'visit #index' do
+    visit new_user_session_path()
+    fill_in "Ēpasts / Lietotājvārds", with: @current_user.username
+    fill_in "Parole", with: @current_user.password
+    click_button "Ielogoties"
+    expect(page).to_not have_content("Ielogoties")
+    expect(page).to have_content("Esi veiksmīgi ielogojies")
+    visit posts_path()
+    expect(page).to_not have_content("Esi veiksmīgi ielogojies")
   end
 
   it 'post should save successfully' do

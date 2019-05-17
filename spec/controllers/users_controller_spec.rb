@@ -1,14 +1,20 @@
 require 'rails_helper'
-
+require 'devise'
 RSpec.describe UsersController, type: :controller do
   before do
     @current_user = User.new(id: 1, name: 'current', username: 'user', email: 'current@user.com', password: 'password')
     @current_user.save
   end
 
-  it 'GET #show returns a success response' do
-    get :show, params: { id: @current_user.to_param }
-    expect(response).to be_success
+  it 'visit #show successfully' do
+    visit new_user_session_path()
+    fill_in "Ēpasts / Lietotājvārds", with: @current_user.username
+    fill_in "Parole", with: @current_user.password
+    click_button "Ielogoties"
+    expect(page).to have_content("Kategorijas")
+    visit profile_path(@current_user.username)
+    print page.html
+    expect(page).to have_content("Profils")
   end
 
   it 'should update user successfully' do
@@ -37,15 +43,35 @@ RSpec.describe UsersController, type: :controller do
     expect(unfound).to eq(nil)
   end
 
-  it 'login' do
-
+  it 'successfully log in with properly filled username end password' do
+    visit new_user_session_path()
+    fill_in "Ēpasts / Lietotājvārds", with: @current_user.username
+    fill_in "Parole", with: @current_user.password
+    click_button "Ielogoties"
+    expect(page).to_not have_content("Ielogoties")
+    expect(page).to have_content("Esi veiksmīgi ielogojies")
+    expect(page.has_link?('', href: destroy_user_session_path)).to be true
   end
 
-  it 'followings' do
-
+  it 'visit current_user followings successfully' do
+    visit new_user_session_path()
+    fill_in "Ēpasts / Lietotājvārds", with: @current_user.username
+    fill_in "Parole", with: @current_user.password
+    click_button "Ielogoties"
+    expect(page).to_not have_content("Ielogoties")
+    expect(page).to have_content("Esi veiksmīgi ielogojies")
+    visit followings_user_path(@current_user.username)
+    expect(page).to have_content("Esi veiksmīgi ielogojies")
   end
 
-  it 'followers' do
-    
+  it 'visit current_user followers successfully' do
+    visit new_user_session_path()
+    fill_in "Ēpasts / Lietotājvārds", with: @current_user.username
+    fill_in "Parole", with: @current_user.password
+    click_button "Ielogoties"
+    expect(page).to_not have_content("Ielogoties")
+    expect(page).to have_content("Esi veiksmīgi ielogojies")
+    visit followers_user_path(@current_user.username)
+    expect(page).to have_content("Esi veiksmīgi ielogojies")
   end
 end

@@ -1,26 +1,23 @@
 class PostsController < ApplicationController
   before_action :set_post, only: [:show, :edit, :update, :destroy]
+  before_action :logged_in?
 
   # GET /posts
   # GET /posts.json
   def index
-    if !current_user
-      redirect_to "/users/sign_in"
+    @current_category = params[:category]
+    if @category = Category.find_by(id: @current_category)
+      @allposts = @category.posts.order("created_at DESC")
     else
-      @current_category = params[:category]
-      if @category = Category.find_by(id: @current_category)
-        @allposts = @category.posts.order("created_at DESC")
-      else
-        @allposts = Post.preload("user").where(user_id: current_user.followings_as_follower.select("following_user_id")).order("created_at DESC")
-      end
-      @posts = @allposts.page(params[:page]).per(20)
-      @post = Post.new
-      @followers = Following.where(following_user: current_user)
-      @followings = Following.where(follower_user: current_user)
-      @categories = Category.all
-      @users = User.all
-      @search_id = 1
+      @allposts = Post.preload("user").where(user_id: current_user.followings_as_follower.select("following_user_id")).order("created_at DESC")
     end
+    @posts = @allposts.page(params[:page]).per(20)
+    @post = Post.new
+    @followers = Following.where(following_user: current_user)
+    @followings = Following.where(follower_user: current_user)
+    @categories = Category.all
+    @users = User.all
+    @search_id = 1
   end
 
   # GET /posts/1
