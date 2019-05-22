@@ -34,7 +34,7 @@ RSpec.describe UsersController, type: :controller do
 
   it 'successfully log in with properly filled username end password' do
     visit new_user_session_path()
-    fill_in "Epasts / Lietotājvārds", with: @current_user.username
+    fill_in "E-pasts / Lietotājvārds", with: @current_user.username
     fill_in "Parole", with: @current_user.password
     click_button "Ielogoties"
     expect(page).to_not have_content("Ielogoties")

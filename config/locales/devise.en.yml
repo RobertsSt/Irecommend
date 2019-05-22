@@ -9,10 +9,10 @@ en:
     failure:
       already_authenticated: "Tu jau esi ielogojies."
       inactive: "Your account is not activated yet."
-      invalid: "Nepareizs lietotājvārds/epasts vai parole."
+      invalid: "Nepareizs lietotājvārds/e-pasts vai parole."
       locked: "Tavs konts ir slēgts"
       last_attempt: "Tev ir vēl viena iespēja līdz tavs konts tiks bloķēts"
-      not_found_in_database: "Nepareizs lietotājvārds/epasts vai parole."
+      not_found_in_database: "Nepareizs lietotājvārds/e-pasts vai parole."
       timeout: "Tava sesija ir beigusies, lūdzu ielogojieties vēlreiz."
       unauthenticated: "Jūs neesat pierakstījies sistēmā."
       unconfirmed: "You have to confirm your email address before continuing."
@@ -24,7 +24,7 @@ en:
       unlock_instructions:
         subject: "Unlock instructions"
       email_changed:
-        subject: "Epasts ir mainīts"
+        subject: "E-pasts ir mainīts"
       password_change:
         subject: "Parole ir mainīta"
     omniauth_callbacks:
