@@ -47,7 +47,7 @@ class User < ApplicationRecord
   validates_length_of :username, maximum: 20, minimum: 2
   validates_length_of :email, maximum: 40, minimum: 5
   validates_length_of :name, maximum: 20, minimum: 2
-  validates_length_of :password, maximum: 20, minimum: 2
+  validates_length_of :password, maximum: 20
 
   attr_writer :login
 
