@@ -43,9 +43,9 @@ html
                 div class="buttons"
                   - if current_user.admin
                     a
-                      = link_to "Admin", admin_users_path, class:"button is-dark is-rounded is-outlined is-inverted"
+                      = link_to "Admin", admin_users_path, class:"button is-dark is-rounded is-outlined is-inverted change-color"
                   a
-                    = link_to "Izlogoties", destroy_user_session_path, method: :delete, class:"button is-dark is-rounded is-outlined is-inverted"
+                    = link_to "Izlogoties", destroy_user_session_path, method: :delete, class:"button is-dark is-rounded is-outlined is-inverted change-color"
 
     = render 'layouts/flash_messages'
     = yield

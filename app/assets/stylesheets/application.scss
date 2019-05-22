@@ -131,6 +131,11 @@ tr:nth-child(even) {
   }
 }
 
+.change-color{
+  @media only screen and (max-width: 1020px) {
+    color: black;
+  }
+}
 .is-width-200px{
   width: 200px;
 }
@@ -231,16 +236,11 @@ tr:nth-child(even) {
 }
 
 section .box .media-content {
-  overflow-x: hidden;
-  overflow-y: hidden;
+  overflow-x: hidden !important;
+  overflow-y: hidden !important;
   .level .level-item{
     margin-bottom: 0rem;
   }
-}
-
-.overflow{
-  overflow-x: hidden !important;
-  overflow-y: hidden !important;
 }
 
 @media (min-width: 768px){
