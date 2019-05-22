@@ -6,7 +6,7 @@ section.section
       .column.is-three-fifths.is-offset-one-fifths.has-flex-1
         .box
           article.media
-            .media-content
+            .media-content.overflow
               .content
                 .has-display-flex
                   figure.image.is-64x64.profile-picture
@@ -37,10 +37,10 @@ section.section
                 - if @post.comments.present?
                   hr class="dropdown-divider"
                     = render @post.comments
-                = simple_form_for([@post, @post.comments.build]) do |f|
-                  .has-display-flex
-                    = f.text_area :content, placeholder: 'Pievienot komentāru...',rows: 3, cols: 45, autofocus: true, class: "gray-border-1px has-flex-1"
-                  = f.button :submit, title="Izveidot", class: "has-margin-left-10px is-small button is-dark is-outlined is-rounded"
+              = simple_form_for([@post, @post.comments.build]) do |f|
+                .has-display-flex
+                  = f.text_area :content, placeholder: 'Pievienot komentāru...',rows: 3, cols: 45, autofocus: true, class: "gray-border-1px has-flex-1"
+                = f.button :submit, title="Izveidot", class: "has-margin-left-10px is-small button is-dark is-outlined is-rounded"
               nav.level.has-display-flex
                 .level-left.has-width-60px.has-display-flex
                   - likes = Like.where(post_id: @post.id)

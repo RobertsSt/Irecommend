@@ -232,9 +232,15 @@ tr:nth-child(even) {
 
 section .box .media-content {
   overflow-x: hidden;
+  overflow-y: hidden;
   .level .level-item{
     margin-bottom: 0rem;
   }
+}
+
+.overflow{
+  overflow-x: hidden !important;
+  overflow-y: hidden !important;
 }
 
 @media (min-width: 768px){
