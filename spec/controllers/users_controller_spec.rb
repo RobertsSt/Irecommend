@@ -6,17 +6,6 @@ RSpec.describe UsersController, type: :controller do
     @current_user.save
   end
 
-  it 'visit #show successfully' do
-    visit new_user_session_path()
-    fill_in "Ēpasts / Lietotājvārds", with: @current_user.username
-    fill_in "Parole", with: @current_user.password
-    click_button "Ielogoties"
-    expect(page).to have_content("Kategorijas")
-    visit profile_path(@current_user.username)
-    print page.html
-    expect(page).to have_content("Profils")
-  end
-
   it 'should update user successfully' do
     @current_user.update(name: 'nameUpdated')
     expect(@current_user.name).to eq('nameUpdated')
@@ -45,33 +34,11 @@ RSpec.describe UsersController, type: :controller do
 
   it 'successfully log in with properly filled username end password' do
     visit new_user_session_path()
-    fill_in "Ēpasts / Lietotājvārds", with: @current_user.username
+    fill_in "Epasts / Lietotājvārds", with: @current_user.username
     fill_in "Parole", with: @current_user.password
     click_button "Ielogoties"
     expect(page).to_not have_content("Ielogoties")
     expect(page).to have_content("Esi veiksmīgi ielogojies")
     expect(page.has_link?('', href: destroy_user_session_path)).to be true
-  end
-
-  it 'visit current_user followings successfully' do
-    visit new_user_session_path()
-    fill_in "Ēpasts / Lietotājvārds", with: @current_user.username
-    fill_in "Parole", with: @current_user.password
-    click_button "Ielogoties"
-    expect(page).to_not have_content("Ielogoties")
-    expect(page).to have_content("Esi veiksmīgi ielogojies")
-    visit followings_user_path(@current_user.username)
-    expect(page).to have_content("Esi veiksmīgi ielogojies")
-  end
-
-  it 'visit current_user followers successfully' do
-    visit new_user_session_path()
-    fill_in "Ēpasts / Lietotājvārds", with: @current_user.username
-    fill_in "Parole", with: @current_user.password
-    click_button "Ielogoties"
-    expect(page).to_not have_content("Ielogoties")
-    expect(page).to have_content("Esi veiksmīgi ielogojies")
-    visit followers_user_path(@current_user.username)
-    expect(page).to have_content("Esi veiksmīgi ielogojies")
   end
 end

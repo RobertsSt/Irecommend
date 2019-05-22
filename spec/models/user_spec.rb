@@ -25,12 +25,6 @@ RSpec.describe User, type: :model do
       expect(failed).to eq(false)
     end
 
-    it "ensures password presence" do
-      user = User.new(name: 'name', username: 'username', email: 'email@email.com')
-      failed = user.save
-      expect(failed).to eq(false)
-    end
-
     it "validates length of bio" do
       bio = "132 simbolu garš teksts, kas neiekļaujas bio paredzētajam garumam, 132 simbolu garš teksts, kas neiekļaujas bio paredzētajam garumam"
       user = User.new(name: 'name', username: 'username', email: 'email@email.com', password: 'password', bio: bio)
@@ -76,15 +70,6 @@ RSpec.describe User, type: :model do
       failed = user.save
       expect(failed).to eq(false)
       user2 = User.new(name: 'name', username: 'username', email: 'emailemailemailemail@emailemailemailemail.com', password: 'password')
-      failed2 = user2.save
-      expect(failed2).to eq(false)
-    end
-
-    it "validates length of password" do
-      user = User.new(name: 'name', username: 'username', email: 'email@email.com', password: 'p')
-      failed = user.save
-      expect(failed).to eq(false)
-      user2 = User.new(name: 'name', username: 'username', email: 'email@email.com', password: 'passwordpasswordpassword')
       failed2 = user2.save
       expect(failed2).to eq(false)
     end
