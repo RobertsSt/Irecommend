@@ -37,7 +37,7 @@ class User < ApplicationRecord
   has_many :likes, dependent: :destroy
 
   validates_length_of :bio, maximum: 110
-  has_attached_file :avatar, styles: { medium: '152x152#' }
+  has_attached_file :avatar
   validates_attachment_content_type :avatar, content_type: /\Aimage\/.*\Z/
 
   validates :username, presence: :true, uniqueness: { case_sensitive: false }
