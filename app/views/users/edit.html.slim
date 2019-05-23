@@ -5,7 +5,7 @@ section.section
         div.box
           h2.title.is-2 Rediģēt
           = simple_form_for(:user, url: {action: "update"}, html: { multipart: true }) do |f|
-            h4 Mainīt profila bildi un aprakstu:
+            h4 Rediģēt profila bildi un aprakstu:
             div.field
               figure.image.img
                 = profile_avatar_select(@user)
