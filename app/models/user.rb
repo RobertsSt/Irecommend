@@ -38,7 +38,7 @@ class User < ApplicationRecord
 
   validates_length_of :bio, maximum: 110
   has_attached_file :avatar
-  validates_attachment_content_type :avatar, content_type: /\Aimage\/.*\Z/
+  validates_attachment_content_type :avatar, :content_type => /image/
 
   validates :username, presence: :true, uniqueness: { case_sensitive: false }
   validates :email, presence: :true, uniqueness: { case_sensitive: false }

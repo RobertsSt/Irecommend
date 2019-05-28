@@ -10,7 +10,7 @@ section.section
                 .content
                   .has-display-flex
                     figure.image.is-64x64.profile-picture
-                      = profile_avatar_select(post.user)
+                      = profile_avatar_select64(post.user)
                     .has-flex-1
                       .has-display-flex
                         strong.has-flex-1.has-margin-top-05
@@ -67,7 +67,7 @@ section.section
                               .gray-border-1px.align-center
                                 div.has-flex-1
                                   figure.image.is-64x64
-                                    = profile_avatar_select(like.user)
+                                    = profile_avatar_select64(like.user)
                                 div.has-flex-4
                                   strong
                                     = like.user.name
