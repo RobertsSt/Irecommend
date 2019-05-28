@@ -7,7 +7,7 @@ class LikesController < ApplicationController
 
   def create
     @like = Like.new
-    if Like.find_by(post_id: @post.id, user_id: current_user.id)
+    if Like.find_by(post_id: @post.id, user_id: current_user.id) #dubult klikšķa kļūdas labojums
       redirect_to root_path
     else
       @like.post_id = @post.id

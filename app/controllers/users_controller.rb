@@ -37,7 +37,6 @@ class UsersController < ApplicationController
     if @user == current_user
       if @user.update(user_params)
         redirect_to root_path, notice: "Tavs profils tika veiksmīgi rediģēts."
-        # format.json { redirect_to profile_path(@user.username), status: :ok, location: @user }
       else
         redirect_to root_path, alert: "Lietotāja apraksts neatbilst formātam (maksimālais simbolu skaits ir 110)"
       end

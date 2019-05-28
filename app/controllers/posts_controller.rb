@@ -7,8 +7,8 @@ class PostsController < ApplicationController
   def index
     @current_category = params[:category]
     if @category = Category.find_by(id: @current_category)
-      @allposts = @category.posts.order("created_at DESC")
-    else
+      @allposts = @category.posts.order("created_at DESC") #ja ir izvēlēta kategorija, tad sākumlapā rāda filtrētus ieteikumus
+    else # citādi rāda lietotāju sekojamo ieteikumus
       @allposts = Post.preload("user").where(user_id: current_user.followings_as_follower.select("following_user_id")).order("created_at DESC")
     end
     @posts = @allposts.page(params[:page]).per(20)
