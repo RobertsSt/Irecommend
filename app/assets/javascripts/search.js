@@ -21,7 +21,7 @@ function filterUsernames() {
   }
 }
 
-jQuery(document).ready(function($) {
+jQuery(document).ready(function($) { #tiek izvēlēts aktīvais search bar atkarībā no ekrāna izmēra
   var alterClass = function() {
     var ww = document.body.clientWidth;
     if (ww > 1456) {
