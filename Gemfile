@@ -52,7 +52,7 @@ gem 'slim'
 gem 'bulma-rails', '~> 0.7.4'
 gem 'simple_form', '~> 4.1'
 gem 'gravatar_image_tag', '~> 1.2'
-gem 'devise', '~> 4.5'
+gem 'devise', '~> 4.7'
 gem 'kaminari'
 gem "paperclip", "~> 6.0.0"
 gem 'pry', '~> 0.12.2'
